@@ -21,16 +21,16 @@ public class RegisterController : ControllerBase
     [HttpPost("register")]
     public ActionResult<Register> create(Register userInput)
     {
-        bool hasDocs = _collection.AsQueryable().Where<Register>(p => p.PhoneNumber == userInput.PhoneNumber).Any();
+        bool hasDocs = _collection.AsQueryable().Where<Register>(p => p.UserName == userInput.UserName).Any();
 
         if (hasDocs)
-            return BadRequest($"فردی قبلا با شماره {userInput.PhoneNumber} ثبت نام کرده است.");
+            return BadRequest($"فردی قبلا با شماره {userInput.UserName} ثبت نام کرده است.");
 
         Register register = new Register(
             Id: null,
             FirstName: userInput.FirstName.Trim(),
             LastName: userInput.LastName.Trim(),
-            UserName: userInput.UserName.Trim(),
+            UserName: userInput.UserName.ToLower().Trim(),
             Password: userInput.Password,
             PhoneNumber: userInput.PhoneNumber.Trim(),
             userSide: userInput.userSide.Trim(),
@@ -51,5 +51,19 @@ public class RegisterController : ControllerBase
             return NoContent();
 
         return registers;
+    }
+
+    [HttpGet("get-by-user-name/{userInput}/{userPassword}")]
+    public ActionResult<Register> GetUser(string userInput, string userPassword)
+    {
+        Register user = _collection.Find(user => user.UserName == userInput.ToLower().Trim() & user.Password == userPassword.Trim()).FirstOrDefault();
+        // Register userPassword = _collection.Find(userPassword => userPassword.UserName == userInput.Trim()).FirstOrDefault();
+
+        if (user == null)
+        {
+            return NotFound("نام کاربری یا رمز عبور اشتباه می باشد");
+        }
+
+        return user;
     }
 }
