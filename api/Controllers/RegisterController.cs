@@ -53,17 +53,17 @@ public class RegisterController : ControllerBase
         return registers;
     }
 
-    [HttpGet("get-by-user-name/{userInput}/{userPassword}")]
-    public ActionResult<Register> GetUser(string userInput, string userPassword)
+    [HttpPost("login")]
+    public ActionResult<Register> Login(Login loginIput)
     {
-        Register user = _collection.Find(user => user.UserName == userInput.ToLower().Trim() & user.Password == userPassword.Trim()).FirstOrDefault();
-        // Register userPassword = _collection.Find(userPassword => userPassword.UserName == userInput.Trim()).FirstOrDefault();
+        Register login = _collection.Find<Register>(login =>
+                login.UserName == loginIput.UserName.Trim().ToLower()
+                && login.Password == loginIput.Password
+            ).FirstOrDefault();
 
-        if (user == null)
-        {
-            return NotFound("نام کاربری یا رمز عبور اشتباه می باشد");
-        }
+        if (login is null)
+            return BadRequest("Bad username or password");
 
-        return user;
+        return login;
     }
 }

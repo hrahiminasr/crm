@@ -1,27 +1,34 @@
-<form>
-  <h2>ورود به صفحه کاربر</h2>
-  <mat-form-field appearance="outline">
-    <mat-label>نام کاربری</mat-label>
-    <input type="text" formControlName="firstNameCtrl" matInput>
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>رمز عبور</mat-label>
-    <input matInput [type]="hide ? 'password' : 'text'" formControlName="passwordCtrl" matInput>
-    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-      [attr.aria-pressed]="hide">
-      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-    </button>
-  </mat-form-field>
+<div>
+  <section class="section-1">
+    <p>Logo</p>
+  </section>
 
-  <button (click)="login()" mat-raised-button color="primary">Show Presidents</button>
-</form>
+  <section class="section-2">
+    <form [formGroup]="loginFg">
+      <h2>ورود به صفحه کاربر</h2>
+      <mat-form-field appearance="outline">
+        <mat-label>نام کاربری</mat-label>
+        <input type="text" formControlName="userNameCtrl" matInput>
+        <mat-error>نام کاربری را واریز کنید</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>رمز عبور</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" formControlName="passwordCtrl" matInput>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error>رمز عبور را وارد کنید</mat-error>
+      </mat-form-field>
 
-<!-- <div>
-  <button (click)="login()" mat-raised-button color="primary">Show Presidents</button>
-</div> -->
+      <button (click)="Login()" mat-raised-button>
+        ورود
+      </button>
 
-<div *ngIf="registers">
-  <ul *ngFor="let register of registers">
-    <li> Name : {{register.userName}}</li>
-  </ul>
+      <div *ngIf="globLogin">
+        <h1>خوش آمدید</h1>
+        <button routerLink="/home" mat-raised-button color="primary">ورود به صفحه خانه</button>
+      </div>
+    </form>
+  </section>
 </div>

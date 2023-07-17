@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Register } from 'src/app/models/register';
+import { Register } from 'src/app/models/register.model';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +17,7 @@ export class RegisterComponent {
   }
 
   registerFg = this.fb.group({
-    firstNameCtrl: ['', [Validators.required,Validators.minLength(3), Validators.maxLength(30)]],
+    firstNameCtrl: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
     lastNameCtrl: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
     userNameCtrl: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]],
     passwordCtrl: ['', [Validators.required, Validators.minLength(8)]],
