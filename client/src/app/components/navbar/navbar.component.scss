@@ -1,6 +1,9 @@
 mat-toolbar {
-  a{
-    color: white;
-    text-decoration: none;
+  display: flex;
+  background: #7f00ff;
+  
+  .section2{
+    direction: rtl;
+    flex-grow: 1;
   }
 }

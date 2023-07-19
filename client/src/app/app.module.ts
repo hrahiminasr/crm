@@ -16,6 +16,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
+
 
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -24,6 +26,7 @@ import { CustomersComponent } from './components/customers/customers.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     CustomersComponent,
     HomeComponent,
     NavbarComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +55,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
-
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

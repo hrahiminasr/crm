@@ -1,4 +1,41 @@
+<mat-toolbar>
+  <div class="section1">
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>settings</mat-icon>
+        <span>تنظیمات</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon aria-hidden="false">logout</mat-icon>
+        <span>خروج</span>
+      </button>
+    </mat-menu>
 
-<mat-toolbar color="primary" color="primary">
-  <a routerLink="home">Home</a>
+    <button mat-icon-button>
+      <mat-icon>notifications</mat-icon>
+    </button>
+  </div>
+
+  <div class="section2">
+    <button routerLink="home" mat-button> صفحه اصلی</button>
+
+    <button mat-button [matMenuTriggerFor]="customerMenu">مشتریان</button>
+    <mat-menu #customerMenu="matMenu" yPosition="below">
+      <button mat-menu-item>افزودن مشتری</button>
+      <button mat-menu-item>اطلاعات مشتریان</button>
+    </mat-menu>
+
+    <button mat-button [matMenuTriggerFor]="orderMenu">سفارشات</button>
+    <mat-menu #orderMenu="matMenu" yPosition="below">
+      <button mat-menu-item>افزودن کالا</button>
+      <button mat-menu-item>ثبت سفارش</button>
+    </mat-menu>
+
+    <button mat-button>ارسال پیغام</button>
+
+    <button mat-button>تیکت ها</button>
+  </div>
 </mat-toolbar>
