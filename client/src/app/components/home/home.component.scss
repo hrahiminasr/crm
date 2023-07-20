@@ -1,7 +1,25 @@
 div{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  height: calc(100vh - 8rem);
   align-items: center;
-  margin-top: 2rem;
-  gap: 2rem;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+
+  section{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .add-customer-card {
+    margin: 2rem;
+    display: flex;
+    max-width: 140px;
+    max-height: 150px;
+
+    cursor: pointer;
+    mat-card-actions{
+      justify-content: center;
+    }     
+  }  
 }
