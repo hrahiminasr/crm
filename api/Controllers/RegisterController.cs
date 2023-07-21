@@ -33,7 +33,7 @@ public class RegisterController : ControllerBase
             UserName: userInput.UserName.ToLower().Trim(),
             Password: userInput.Password,
             PhoneNumber: userInput.PhoneNumber.Trim(),
-            userSide: userInput.userSide.Trim(),
+            UserSide: userInput.UserSide.Trim(),
             Email: userInput.Email?.Trim().ToLower()
         );
 
@@ -53,17 +53,24 @@ public class RegisterController : ControllerBase
         return registers;
     }
 
-    [HttpPost("login")]
-    public ActionResult<Register> Login(Login loginIput)
+    [HttpGet("get-by-username/{UserName}/{Password}")]
+    public ActionResult<Register>? Login(string userName, string password)
     {
         Register login = _collection.Find<Register>(login =>
-                login.UserName == loginIput.UserName.Trim().ToLower()
-                && login.Password == loginIput.Password
-            ).FirstOrDefault();
+        login.UserName == userName.Trim().ToLower()
+        && login.Password == password).FirstOrDefault();
 
         if (login is null)
-            return BadRequest("Bad username or password");
+            return BadRequest(".نام کاربری یارمز عبور اشتباه می باشد");
 
         return login;
+    }
+
+    [HttpGet("get-by-userside")]
+    public ActionResult<IEnumerable<Register>> LoginAdmin()
+    {
+        List<Register> loginAdmin = _collection.Find<Register>(loginAdmin => loginAdmin.UserSide == "admin").ToList();
+
+        return loginAdmin;
     }
 }

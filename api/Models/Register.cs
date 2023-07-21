@@ -11,6 +11,6 @@ public record Register(
     [MinLength(5), MaxLength(15)] string UserName,
     [MinLength(8)] string Password,
     [MinLength(11), MaxLength(11)] string PhoneNumber,
-    string userSide,
+    string UserSide,
     [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$", ErrorMessage ="Bad Email Format.")] string? Email
 );

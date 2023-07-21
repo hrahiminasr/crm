@@ -3,22 +3,27 @@ form {
   flex-direction: column;
   align-items: center;
   margin-top: 2rem;
-}
+  margin-bottom: 2rem;
 
-form :nth-child(2){
-  input {
-    direction: rtl;
+  mat-form-field {
+    min-width: 15rem;
   }
-}
 
-form :nth-child(3){
-  input {
-    direction: rtl;
+  form :nth-child(2) {
+    input {
+      direction: rtl;
+    }
   }
-}
 
-form :nth-child(7){
-  input {
-    direction: rtl;
+  form :nth-child(3) {
+    input {
+      direction: rtl;
+    }
+  }
+
+  form :nth-child(7) {
+    input {
+      direction: rtl;
+    }
   }
 }

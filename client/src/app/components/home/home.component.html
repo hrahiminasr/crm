@@ -7,18 +7,15 @@
       <mat-card-actions>
         <h3>ثبت مشتری</h3>
       </mat-card-actions>
-    </mat-card>  
-  
-  
-    <mat-card routerLink="#" class="add-customer-card">
+    </mat-card>
+    <mat-card routerLink="/orders" class="add-customer-card">
       <img mat-card-image src="../../../assets/images/add-order.jpg" alt="Photo of a add-customer">
       <mat-card-content>
       </mat-card-content>
       <mat-card-actions>
         <h3>ثبت سفارشات</h3>
       </mat-card-actions>
-    </mat-card>  
-  
+    </mat-card>
     <mat-card routerLink="#" class="add-customer-card">
       <img mat-card-image src="../../../assets/images/add-product.jpg" alt="Photo of a add-customer">
       <mat-card-content>
@@ -26,20 +23,19 @@
       <mat-card-actions>
         <h3>افزودن کالا</h3>
       </mat-card-actions>
-    </mat-card>  
-
-    <mat-card routerLink="#" class="add-customer-card">
+    </mat-card>
+    <mat-card *ngIf="LoginAdmin()" routerLink="/register" class="add-customer-card">
       <img mat-card-image src="../../../assets/images/add-customer.jpg" alt="Photo of a add-customer">
       <mat-card-content>
       </mat-card-content>
       <mat-card-actions>
-        <h3>ثبت مشتری</h3>
+        <h3>ثبت نام کاربر</h3>
       </mat-card-actions>
-    </mat-card> 
+    </mat-card>
   </section>
-  
+
   <section>
-    
+
   <mat-card routerLink="#" class="add-customer-card">
     <img mat-card-image src="../../../assets/images/tiket.jpg" alt="Photo of a add-customer">
     <mat-card-content>
@@ -47,7 +43,7 @@
     <mat-card-actions>
       <h3>تیکت</h3>
     </mat-card-actions>
-  </mat-card> 
+  </mat-card>
 
   <mat-card routerLink="#" class="add-customer-card">
     <img mat-card-image src="../../../assets/images/add-customer.jpg" alt="Photo of a add-customer">
@@ -56,7 +52,7 @@
     <mat-card-actions>
       <h3>ثبت مشتری</h3>
     </mat-card-actions>
-  </mat-card> 
+  </mat-card>
 
   <mat-card routerLink="#" class="add-customer-card">
     <img mat-card-image src="../../../assets/images/add-customer.jpg" alt="Photo of a add-customer">
@@ -65,7 +61,7 @@
     <mat-card-actions>
       <h3>ثبت مشتری</h3>
     </mat-card-actions>
-  </mat-card> 
+  </mat-card>
 
   <mat-card routerLink="#" class="add-customer-card">
     <img mat-card-image src="../../../assets/images/add-customer.jpg" alt="Photo of a add-customer">
@@ -74,7 +70,7 @@
     <mat-card-actions>
       <h3>ثبت مشتری</h3>
     </mat-card-actions>
-  </mat-card> 
+  </mat-card>
   </section>
 </div>
 

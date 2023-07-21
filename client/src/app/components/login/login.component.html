@@ -20,15 +20,10 @@
         </button>
         <mat-error>رمز عبور را وارد کنید</mat-error>
       </mat-form-field>
-
-      <button (click)="Login()" mat-raised-button>
+        <button (click)="Login()" mat-raised-button >
         ورود
       </button>
-
-      <div *ngIf="globLogin">
-        <h1>خوش آمدید</h1>
-        <button routerLink="/home" mat-raised-button color="primary">ورود به صفحه خانه</button>
-      </div>
+      <mat-error>{{globError}}</mat-error>
     </form>
   </section>
 </div>

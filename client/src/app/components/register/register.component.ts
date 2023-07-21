@@ -69,5 +69,6 @@ export class RegisterComponent {
         }
       }
     );
+    this.registerFg.reset();
   }
 }
