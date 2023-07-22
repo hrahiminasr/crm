@@ -1,37 +1,65 @@
 <form [formGroup]="registerFg">
   <h2>ثبت نام کاربر</h2>
-  <mat-form-field appearance="outline">
-    <mat-label>نام</mat-label>
-    <input type="text" formControlName="firstNameCtrl" matInput>
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>نام خانوادگی</mat-label>
-    <input type="text" formControlName="lastNameCtrl" matInput>
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>نام کاربری</mat-label>
-    <input type="text" formControlName="userNameCtrl" matInput>
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>رمز عبور</mat-label>
-    <input matInput [type]="hide ? 'password' : 'text'" formControlName="passwordCtrl" matInput>
-    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-      [attr.aria-pressed]="hide">
-      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-    </button>
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>شماره تلفن همراه</mat-label>
-    <input type="text" formControlName="phoneNumberCtrl" matInput>
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>سمت</mat-label>
-    <input type="text" formControlName="userSideCtrl" matInput>
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>ایمیل</mat-label>
-    <input type="text" formControlName="emailCtrl" matInput>
-  </mat-form-field>
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>نام</mat-label>
+      <input type="text" formControlName="firstNameCtrl" matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>نام خانوادگی</mat-label>
+      <input type="text" formControlName="lastNameCtrl" matInput>
+    </mat-form-field>
+  </div>
 
-  <button (click)="register()" [disabled]="registerFg.invalid" mat-raised-button color="primary">Register</button>
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>نام کاربری</mat-label>
+      <input type="text" formControlName="userNameCtrl" matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>رمز عبور</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" formControlName="passwordCtrl" matInput>
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>تکرار رمز عبور</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" formControlName="passwordCtrl" matInput>
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>سمت</mat-label>
+      <input type="text" formControlName="userSideCtrl" matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>نقش</mat-label>
+      <input type="text" formControlName="userSideCtrl" matInput>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="outline" class="address">
+      <mat-label>آدرس</mat-label>
+      <input type="text" formControlName="phoneNumberCtrl" matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>شماره تلفن همراه</mat-label>
+      <input type="text" formControlName="phoneNumberCtrl" matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>ایمیل</mat-label>
+      <input type="text" formControlName="emailCtrl" matInput>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <button (click)="register()" [disabled]="registerFg.invalid" mat-raised-button color="primary">ثبت</button>
+  </div>
 </form>

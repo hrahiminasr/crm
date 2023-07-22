@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
-
+  date: Date | undefined;
+  constructor() {
+    setInterval(() => {
+      this.date = new Date()
+    }, 1000)
+  }
 }

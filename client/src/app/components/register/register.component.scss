@@ -1,29 +1,39 @@
-form {
+form{
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  height: calc(100vh - 8rem);
 
-  mat-form-field {
-    min-width: 15rem;
+  h2{
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 2rem;
   }
 
-  form :nth-child(2) {
-    input {
-      direction: rtl;
-    }
+  div{
+    margin-right: 10rem;
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 2rem;
   }
 
-  form :nth-child(3) {
-    input {
-      direction: rtl;
-    }
+  mat-form-field{
+    min-width: 16rem;
   }
 
-  form :nth-child(7) {
-    input {
-      direction: rtl;
-    }
+  .address{
+    min-width: 34rem;
+  }
+
+  input{
+    direction: rtl;
+
+  }
+
+  mat-label{
+    // background: red;
+    // display: flex;
+    // flex-direction: row-reverse;
+    float: right;
+    // display: flex;
   }
 }
