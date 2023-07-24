@@ -13,16 +13,18 @@ export class RegisterComponent {
 
   registerRes: Register | undefined;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
-  }
+  constructor(private fb: FormBuilder, private http: HttpClient) {}
 
   registerFg = this.fb.group({
     firstNameCtrl: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
     lastNameCtrl: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
     userNameCtrl: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]],
     passwordCtrl: ['', [Validators.required, Validators.minLength(8)]],
+    confirmPasswordCtrl: ['', [Validators.required, Validators.minLength(8)]],
+    userTitleCtrl: ['', [Validators.required]],
+    userRoleCtrl: ['', [Validators.required]],
+    addressCtrl: ['', [Validators.required]],
     phoneNumberCtrl: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
-    userSideCtrl: ['', [Validators.required]],
     emailCtrl: ['', [Validators.pattern(/^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$/)]]
   });
 
@@ -38,11 +40,20 @@ export class RegisterComponent {
   get PasswordCtrl(): FormControl {
     return this.registerFg.get('passwordCtrl') as FormControl;
   }
+  get ConfirmPasswordCtrl(): FormControl {
+    return this.registerFg.get('confirmPasswordCtrl') as FormControl;
+  }
+  get UserTitleCtrl(): FormControl {
+    return this.registerFg.get('userTitleCtrl') as FormControl;
+  }
+  get UserRoleCtrl(): FormControl {
+    return this.registerFg.get('userRoleCtrl') as FormControl;
+  }
+  get AddressCtrl(): FormControl {
+    return this.registerFg.get('addressCtrl') as FormControl;
+  }
   get PhoneNumberCtrl(): FormControl {
     return this.registerFg.get('phoneNumberCtrl') as FormControl;
-  }
-  get UserSideCtrl(): FormControl {
-    return this.registerFg.get('userSideCtrl') as FormControl;
   }
   get EmailCtrl(): FormControl {
     return this.registerFg.get('emailCtrl') as FormControl;
@@ -56,8 +67,11 @@ export class RegisterComponent {
       lastName: this.LastNameCtrl.value,
       userName: this.UserNameCtrl.value,
       password: this.PasswordCtrl.value,
+      confirmPassword:this.ConfirmPasswordCtrl.value,
+      userTitle: this.UserTitleCtrl.value,
+      userRole:this.UserRoleCtrl.value,
+      address:this.AddressCtrl.value,
       phoneNumber: this.PhoneNumberCtrl.value,
-      userSide: this.UserSideCtrl.value,
       email: this.EmailCtrl.value
     }
 

@@ -1,1 +1,48 @@
-<p>customers works!</p>
+
+  <form [formGroup]="customerFg">
+    <h1>اضافه کردن مشتری جدید</h1>
+    <mat-form-field appearance="outline">
+      <mat-label>نام</mat-label>
+      <input type="text" formControlName="nameCtrl" matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>کد ملی/شناسه ملی</mat-label>
+      <input type="text" formControlName="nationallCodeCtrl" matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>کد اقتصادی</mat-label>
+      <input type="text" formControlName="economicCodeCtrl" matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>تلفن همراه</mat-label>
+      <input type="text" formControlName="mobilePhoneCtrl" matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>تلفن ثابت</mat-label>
+      <input type="text" formControlName="phoneNumberCtrl" matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>استان</mat-label>
+      <input type="text" formControlName="stateCtrl" matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>شهر</mat-label>
+      <input type="text" formControlName="cityCtrl" matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>آدرس دفتر</mat-label>
+      <input type="text" formControlName="addressCtrl" matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>آدرس انبار/کارخانه</mat-label>
+      <input type="text" formControlName="factoryAddressCtrl" matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>کد پستی</mat-label>
+      <input type="text" formControlName="zipeCodeCtrl" matInput>
+    </mat-form-field>
+
+    <button (click)="customer()" [disabled]="customerFg.invalid" mat-raised-button color="primary">دخیره</button>
+    </form>
+
+

@@ -11,7 +11,6 @@ namespace api.Controllers;
 public class RegisterController : ControllerBase
 {
     private readonly IMongoCollection<Register> _collection;
-    // Dependency Injection
     public RegisterController(IMongoClient client, IMongoDbSettings dbSettings)
     {
         var dbName = client.GetDatabase(dbSettings.DatabaseName);
@@ -21,6 +20,10 @@ public class RegisterController : ControllerBase
     [HttpPost("register")]
     public ActionResult<Register> create(Register userInput)
     {
+        if (userInput.Password != userInput.ConfirmPassword)
+        {
+            return BadRequest(".کلمه عبور با تکرار کلمه عبور یکسان نیست");
+        }
         bool hasDocs = _collection.AsQueryable().Where<Register>(p => p.UserName == userInput.UserName).Any();
 
         if (hasDocs)
@@ -32,8 +35,11 @@ public class RegisterController : ControllerBase
             LastName: userInput.LastName.Trim(),
             UserName: userInput.UserName.ToLower().Trim(),
             Password: userInput.Password,
+            ConfirmPassword: userInput.ConfirmPassword,
+            UserTitle: userInput.UserTitle,
+            UserRole: userInput.UserRole,
+            Address: userInput.Address,
             PhoneNumber: userInput.PhoneNumber.Trim(),
-            UserSide: userInput.UserSide.Trim(),
             Email: userInput.Email?.Trim().ToLower()
         );
 
@@ -69,7 +75,7 @@ public class RegisterController : ControllerBase
     [HttpGet("get-by-userside")]
     public ActionResult<IEnumerable<Register>> LoginAdmin()
     {
-        List<Register> loginAdmin = _collection.Find<Register>(loginAdmin => loginAdmin.UserSide == "admin").ToList();
+        List<Register> loginAdmin = _collection.Find<Register>(loginAdmin => loginAdmin.UserRole == "admin").ToList();
 
         return loginAdmin;
     }

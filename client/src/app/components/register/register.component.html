@@ -26,7 +26,7 @@
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>تکرار رمز عبور</mat-label>
-      <input matInput [type]="hide ? 'password' : 'text'" formControlName="passwordCtrl" matInput>
+      <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmPasswordCtrl" matInput>
       <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
         [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -37,17 +37,17 @@
   <div>
     <mat-form-field appearance="outline">
       <mat-label>سمت</mat-label>
-      <input type="text" formControlName="userSideCtrl" matInput>
+      <input type="text" formControlName="userTitleCtrl" matInput>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>نقش</mat-label>
-      <input type="text" formControlName="userSideCtrl" matInput>
+      <input type="text" formControlName="userRoleCtrl" matInput>
     </mat-form-field>
   </div>
   <div>
     <mat-form-field appearance="outline" class="address">
       <mat-label>آدرس</mat-label>
-      <input type="text" formControlName="phoneNumberCtrl" matInput>
+      <input type="text" formControlName="addressCtrl" matInput>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>شماره تلفن همراه</mat-label>
