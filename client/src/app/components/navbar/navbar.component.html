@@ -21,21 +21,17 @@
 
   <div class="section2">
     <button routerLink="home" mat-button> صفحه اصلی</button>
-
     <button mat-button [matMenuTriggerFor]="customerMenu">مشتریان</button>
     <mat-menu #customerMenu="matMenu" yPosition="below">
       <button mat-menu-item>افزودن مشتری</button>
       <button mat-menu-item>اطلاعات مشتریان</button>
     </mat-menu>
-
     <button mat-button [matMenuTriggerFor]="orderMenu">سفارشات</button>
     <mat-menu #orderMenu="matMenu" yPosition="below">
       <button mat-menu-item>افزودن کالا</button>
       <button mat-menu-item>ثبت سفارش</button>
     </mat-menu>
-
     <button mat-button>ارسال پیغام</button>
-
     <button mat-button>تیکت ها</button>
   </div>
 </mat-toolbar>

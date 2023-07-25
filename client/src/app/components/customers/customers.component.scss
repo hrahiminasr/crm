@@ -1,5 +1,6 @@
-// div{
-//   display: flex;
-//   flex-direction: column;
-//   height: calc(100vh - 8rem);
-// }
+form {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 8rem);
+  flex-direction: row-reverse;
+}

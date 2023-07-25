@@ -1,3 +1,7 @@
+@font-face {
+  font-family: BDAVAT;
+  src: url(/../assets/fonts/BDAVAT.TTF);
+}
 div{
   display: flex;
   flex-direction: row;
@@ -5,6 +9,7 @@ div{
   align-items: center;
   justify-content: space-evenly;
   flex-wrap: wrap;
+  font-family: 'Bdavat';
 
   section{
     display: flex;
