@@ -1,0 +1,28 @@
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="customers">
+  Position Column
+  <!-- <ng-container  matColumnDef="position">
+    <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+    <mat-cell *ngFor="let customers of customers"> {{customers.name}} </mat-cell>
+  </ng-container> -->
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef> نام </mat-header-cell>
+    <mat-cell [ngClass]="{'highlight': customersLis == customers.id"> {{customers.name}} </mat-cell>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="city">
+    <mat-header-cell *matHeaderCellDef> شهر </mat-header-cell>
+    <mat-cell *ngFor="let customers of customers"> {{customers.city}} </mat-cell>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="mobilePhone">
+    <mat-header-cell *matHeaderCellDef> موبایل </mat-header-cell>
+    <mat-cell *ngFor="let customers of customers"> {{customers.mobilePhone}} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

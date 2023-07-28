@@ -1,6 +1,7 @@
 using api.Models;
 using api.Settings;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace api.Controllers;
@@ -39,6 +40,17 @@ public class CustomersController : ControllerBase
         );
 
         _collection.InsertOne(customers);
+
+        return customers;
+    }
+
+        [HttpGet("get-all")]
+    public ActionResult<IEnumerable<Customers>> GetAll()
+    {
+        List<Customers> customers = _collection.Find<Customers>(new BsonDocument()).ToList();
+
+        if (!customers.Any())
+            return NoContent();
 
         return customers;
     }

@@ -2,10 +2,15 @@
   font-family: BDAVAT;
   src: url(/../assets/fonts/BDAVAT.TTF);
 }
+@font-face {
+  font-family: serif;
+  src: url(/../assets/fonts/Mj_Serif_0.ttf);
+}
+
 mat-toolbar {
   display: flex;
   background: #7f00ff;
-  
+
   .section2{
     direction: rtl;
     flex-grow: 1;
@@ -14,5 +19,6 @@ mat-toolbar {
   button{
     font-family: 'BDAVAT';
     font-size: 15pt;
+    color: white;
   }
 }
