@@ -1,28 +1,31 @@
-<mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="customers">
-  Position Column
-  <!-- <ng-container  matColumnDef="position">
-    <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-    <mat-cell *ngFor="let customers of customers"> {{customers.name}} </mat-cell>
-  </ng-container> -->
-
-  <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef> نام </mat-header-cell>
-    <mat-cell [ngClass]="{'highlight': customersLis == customers.id"> {{customers.name}} </mat-cell>
-  </ng-container>
-
-  <!-- Weight Column -->
-  <ng-container matColumnDef="city">
-    <mat-header-cell *matHeaderCellDef> شهر </mat-header-cell>
-    <mat-cell *ngFor="let customers of customers"> {{customers.city}} </mat-cell>
-  </ng-container>
-
-  <!-- Symbol Column -->
-  <ng-container matColumnDef="mobilePhone">
-    <mat-header-cell *matHeaderCellDef> موبایل </mat-header-cell>
-    <mat-cell *ngFor="let customers of customers"> {{customers.mobilePhone}} </mat-cell>
-  </ng-container>
-
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-</mat-table>
+<div>
+  <section class="section1">
+    <mat-form-field class="example-form-field">
+      <mat-label>Clearable input</mat-label>
+      <input matInput type="text" [(ngModel)]="value">
+      <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    
+    <button routerLink="/customers">مشتری جدید</button>
+  </section>
+  <section class="section2">
+    <table>
+      <tr>
+        <th>نام</th>
+        <th>شهر</th>
+        <th>موبایل</th>
+        <th>اصلاح</th>
+        <th>حذف</th>
+      </tr>
+      <tr *ngFor="let customers of customers">
+        <td>{{customers.name}}</td>
+        <td>{{customers.city}}</td>
+        <td>{{customers.mobilePhone}}</td>
+        <td><button>اصلاح</button></td>
+        <td><button>حدف</button></td>
+      </tr>
+    </table>
+  </section>
+</div>

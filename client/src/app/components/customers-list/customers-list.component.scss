@@ -1,9 +1,31 @@
-.mat-mdc-table {
-  width: 100%;
+div {
   height: calc(100vh - 8rem);
   overflow: auto;
-}
 
-.mat-column-name {
-  height: 100px;
+  .section1{
+    position: fixed;
+    // top: 4rem;
+    width: 100%;
+    // padding: 20px;
+    // box-sizing: border-box;
+    // background: #DD3543;
+    gap: 10rem;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    padding-top: 50rem;
+    position: relative;
+
+    th,
+    td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th{
+      font-size: 1.5rem;
+    }
+  }
 }
