@@ -10,7 +10,8 @@ import { Customers } from 'src/app/models/customers.model';
 })
 export class CustomersComponent {
   customerRes: Customers | undefined;
-
+  globError : string | undefined;
+  
   constructor(private fb: FormBuilder, private http: HttpClient) {}
 
   customerFg = this.fb.group({
@@ -71,13 +72,17 @@ export class CustomersComponent {
       zipeCode: this.ZipeCodeCtrl.value
     }
 
-    this.http.post<Customers>('http://localhost:5000/api/customers/customers', customers).subscribe(
+    this.http.post<Customers>('http://localhost:5000/api/customers/customers/', customers).subscribe(
       {
         next: res => {
           this.customerRes = res;
           console.log(res);
-        }
+        },
+        error : err => {
+          console.log(err.error);
+          this.globError = err.error}
       }
-    )
+    );
+    this.customerFg.reset();
   }
 }

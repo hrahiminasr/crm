@@ -54,4 +54,11 @@ public class CustomersController : ControllerBase
 
         return customers;
     }
+
+    [HttpDelete("delete/{userMobilePhone}")]
+    public ActionResult<DeleteResult> Delete(string userMobilePhone)
+    {
+
+        return _collection.DeleteOne<Customers>(doc => doc.MobilePhone == userMobilePhone);
+    }
 }

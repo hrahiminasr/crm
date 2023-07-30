@@ -4,28 +4,29 @@ div {
 
   .section1{
     position: fixed;
-    // top: 4rem;
     width: 100%;
-    // padding: 20px;
-    // box-sizing: border-box;
-    // background: #DD3543;
-    gap: 10rem;
+    background: white;
+    display: flex;
+    padding-top: 1rem;
+    padding-left: 2rem;
+    gap: 50rem;
   }
+
+  .section2{
+    padding-top: 7rem;
+     
   table {
     border-collapse: collapse;
     width: 100%;
-    padding-top: 50rem;
-    position: relative;
-
+   
     th,
     td {
       padding: 8px;
       text-align: left;
       border-bottom: 1px solid #ddd;
-    }
+      text-align: center;
 
-    th{
-      font-size: 1.5rem;
+      } 
     }
   }
 }
