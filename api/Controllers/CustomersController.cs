@@ -61,4 +61,22 @@ public class CustomersController : ControllerBase
 
         return _collection.DeleteOne<Customers>(doc => doc.MobilePhone == userMobilePhone);
     }
+
+    [HttpPut("update/{userPhonNumber}")]
+    public ActionResult<UpdateResult> UpdateUserById(string userPhonNumber, Customers userIn)
+    {
+        var updateUser = Builders<Customers>.Update
+        .Set(doc => doc.Name, userIn.Name)
+        .Set(doc => doc.NationallCode, userIn.NationallCode)
+        .Set(doc => doc.EconomicCode, userIn.EconomicCode)
+        .Set(doc => doc.MobilePhone, userIn.MobilePhone)
+        .Set(doc => doc.PhoneNumber, userIn.PhoneNumber)
+        .Set(doc => doc.State, userIn.State)
+        .Set(doc => doc.City, userIn.City)
+        .Set(doc => doc.Address, userIn.Address)
+        .Set(doc => doc.FactoryAddress, userIn.FactoryAddress)
+        .Set(doc => doc.ZipeCode, userIn.ZipeCode);
+
+        return _collection.UpdateOne<Customers>(doc => doc.PhoneNumber == userPhonNumber, updateUser);
+    }
 }

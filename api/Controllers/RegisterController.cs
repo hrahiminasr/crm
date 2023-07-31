@@ -31,8 +31,8 @@ public class RegisterController : ControllerBase
 
         Register register = new Register(
             Id: null,
-            FirstName: userInput.FirstName.Trim(),
-            LastName: userInput.LastName.Trim(),
+            FirstName: userInput.FirstName.Trim().ToLower(),
+            LastName: userInput.LastName.Trim().ToLower(),
             UserName: userInput.UserName.ToLower().Trim(),
             Password: userInput.Password,
             ConfirmPassword: userInput.ConfirmPassword,

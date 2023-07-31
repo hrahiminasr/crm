@@ -31,6 +31,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CustomersListComponent } from './components/customers-list/customers-list.component';
+import { ProductComponent } from './components/product/product.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { CustomersListComponent } from './components/customers-list/customers-li
     NavbarComponent,
     NotFoundComponent,
     FooterComponent,
-    CustomersListComponent
+    CustomersListComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,
