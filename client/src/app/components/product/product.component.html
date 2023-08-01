@@ -1,1 +1,25 @@
-<p>product works!</p>
+<form [formGroup]="invoiceForm">
+	<table border=1>
+		<thead>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Action</th>
+		</thead>
+		<tbody formArrayName="Rows">
+			<tr *ngFor="let itemrow of invoiceForm.controls.Rows.controls; let i=index;let l=last"
+				[formGroupName]="i">
+				<td>{{i+1}}</td>
+				<td>
+					<input formControlName="name" class="form-control">
+        </td>
+				<td>
+					<button *ngIf="invoiceForm.controls.Rows.controls.length > 1" (click)="deleteRow(i)" class="btn btn-danger">Delete</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</form>
+<button type="button" (click)="addNewRow()" class="btn btn-primary">Add new Row</button>
+<br/>
+<br/>
+<pre>{{invoiceForm.value | json}}</pre>
