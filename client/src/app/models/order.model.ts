@@ -4,7 +4,7 @@ export interface Order{
   city: string,
   date: string,
   number: number,
-  // row: number,
+  row: number,
   product: string,
   productNumber: number,
   unit: string,

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { resetFakeAsyncZone } from '@angular/core/testing';
 import { MatTableModule } from '@angular/material/table';
 import { Customers } from 'src/app/models/customers.model';
+import { CustomersComponent } from '../customers/customers.component';
 
 @Component({
   selector: 'app-customers-list',
@@ -20,7 +21,11 @@ export class CustomersListComponent {
 
   deleteCustomer(userMobilePhone:string){
     this.http.delete<Customers[]>('http://localhost:5000/api/customers/delete/'+userMobilePhone).subscribe(
-      {next: res => this.customers = res}
+      {next: res => {
+        this.customers = res;
+        }
+      }
     );
+
   }
 }

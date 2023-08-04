@@ -11,7 +11,7 @@ import { Customers } from 'src/app/models/customers.model';
 export class CustomersComponent {
   customerRes: Customers | undefined;
   globError : string | undefined;
-  
+
   constructor(private fb: FormBuilder, private http: HttpClient) {}
 
   customerFg = this.fb.group({
@@ -77,6 +77,7 @@ export class CustomersComponent {
         next: res => {
           this.customerRes = res;
           console.log(res);
+          this.customerFg.reset();
         },
         error : err => {
           console.log(err.error);

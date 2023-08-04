@@ -31,7 +31,7 @@ public class OrderController : ControllerBase
             City: userInput.City.Trim().ToLower(),
             Date: userInput.Date.Trim(),
             Number: userInput.Number,
-            // Row: userInput.Row,
+            Row: userInput.Row,
             Product: userInput.Product.ToLower().Trim(),
             ProductNumber: userInput.ProductNumber,
             Unit: userInput.Unit.ToLower().Trim(),

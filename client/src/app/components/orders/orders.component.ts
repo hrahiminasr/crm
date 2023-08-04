@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormArray,FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Customers } from 'src/app/models/customers.model';
 import { Order } from 'src/app/models/order.model';
 
 @Component({
@@ -12,8 +13,19 @@ export class OrdersComponent {
   ordersRes: Order | undefined;
   globError : string | undefined;
   public invoiceForm: FormGroup | any;
-  
-  constructor(private fb:FormBuilder, private http:HttpClient){}
+  todayDate : Date = new Date();
+  customers: Customers[] | undefined;
+  counter = 1;
+
+  constructor(private fb:FormBuilder, private http:HttpClient){
+    this.http.get<Customers[]>('http://localhost:5000/api/customers/get-all').subscribe(
+      { next: response => this.customers = response }
+    );
+  }
+
+  increment() {
+    this.counter++;
+  }
 
   // ngOnInit() {
   //   this.invoiceForm = this.fb.group({
@@ -21,23 +33,23 @@ export class OrdersComponent {
   //   });
   // }
 
-    get formArr() {
-      return this.invoiceForm.get("Rows") as FormArray;
-    }
-  
-    initRows() {
-      return this.fb.group({
-        name: [""]
-      });
-    }
-  
-    addNewRow() {
-      this.formArr.push(this.initRows());
-    }
-  
-    deleteRow(index: number) {
-      this.formArr.removeAt(index);
-    }
+  //   get formArr() {
+  //     return this.invoiceForm.get("Rows") as FormArray;
+  //   }
+
+  //   initRows() {
+  //     return this.fb.group({
+  //       name: [""]
+  //     });
+  //   }
+
+  //   addNewRow() {
+  //     this.formArr.push(this.initRows());
+  //   }
+
+  //   deleteRow(index: number) {
+  //     this.formArr.removeAt(index);
+  //   }
 
 
   ordersFg = this.fb.group({
@@ -46,7 +58,7 @@ export class OrdersComponent {
     cityCtrl: ['',[Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
     dateCtrl:['',[Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
     numberCtrl: ['',[Validators.required, Validators.min(1), Validators.max(1000)]],
-    // rowCtrl: ['',[Validators.required, Validators.min(1), Validators.max(100)]],
+    rowCtrl: ['',[Validators.required, Validators.min(1), Validators.max(100)]],
     productCtrl: ['',[Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
     productNumbeCtrlr: ['',[Validators.required, Validators.min(1), Validators.max(1000)]],
     unitCtrl: ['',[Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
@@ -68,9 +80,9 @@ export class OrdersComponent {
   get NumberCtrl(): FormControl{
     return this.ordersFg.get('numberCtrl') as FormControl;
   }
-  // get RowCtrl(): FormControl{
-  //   return this.ordersFg.get('rowCtrl') as FormControl;
-  // }
+  get RowCtrl(): FormControl{
+    return this.ordersFg.get('rowCtrl') as FormControl;
+  }
   get ProductCtrl(): FormControl{
     return this.ordersFg.get('productCtrl') as FormControl;
   }
@@ -91,7 +103,7 @@ export class OrdersComponent {
       city: this.CityCtrl.value,
       date: this.DateCtrl.value,
       number: this.NumberCtrl.value,
-      // row: this.RowCtrl.value,
+      row: this.RowCtrl.value,
       product: this.ProductCtrl.value,
       productNumber: this.ProductNumbeCtrlr.value,
       unit: this.UnitCtrl.value,
@@ -109,6 +121,6 @@ export class OrdersComponent {
           this.globError = err.error}
       }
     );
-    this.ordersFg.reset();
+    // this.ordersFg.reset();
   }
 }

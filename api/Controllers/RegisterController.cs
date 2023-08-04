@@ -60,14 +60,14 @@ public class RegisterController : ControllerBase
     }
 
     [HttpGet("get-by-username/{UserName}/{Password}")]
-    public ActionResult<Register>? Login(string userName, string password)
+    public ActionResult<Register> Login(string userName, string password)
     {
         Register login = _collection.Find<Register>(login =>
         login.UserName == userName.Trim().ToLower()
         && login.Password == password).FirstOrDefault();
 
         if (login is null)
-            return BadRequest(".نام کاربری یارمز عبور اشتباه می باشد");
+            return Unauthorized(".نام کاربری یا رمز عبور اشتباه می باشد");
 
         return login;
     }

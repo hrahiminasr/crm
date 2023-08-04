@@ -1,0 +1,30 @@
+.custom {
+  // direction: rtl;
+  display: flex;
+  justify-content: center;
+
+  mat-form-field {
+    width: 40%;
+    display: flex;
+    // direction: rtl;
+    // align-items: center;
+    // font-size: 50pt;
+    mat-label{
+      display: flex;
+      // justify-content: flex-start;
+      direction: rtl;
+    }
+
+    mat-select{
+      display: flex;
+      // justify-items: start;
+      font-size: 14pt;
+      direction: rtl;
+
+      mat-option{
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+}

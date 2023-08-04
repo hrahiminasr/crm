@@ -21,6 +21,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {CdkTableModule} from '@angular/cdk/table';
+import {MatSelectModule} from '@angular/material/select';
+
 
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -32,6 +34,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CustomersListComponent } from './components/customers-list/customers-list.component';
 import { ProductComponent } from './components/product/product.component';
+
+
 
 @NgModule({
   declarations: [
@@ -66,7 +70,8 @@ import { ProductComponent } from './components/product/product.component';
     MatCardModule,
     MatTableModule,
     MatPaginatorModule,
-    CdkTableModule
+    CdkTableModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
