@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Customers } from 'src/app/models/customers.model';
+import { CustomerService as CustomerService } from 'src/app/services/customer.service';
 
 @Component({
   selector: 'app-customers',
@@ -10,9 +11,9 @@ import { Customers } from 'src/app/models/customers.model';
 })
 export class CustomersComponent {
   customerRes: Customers | undefined;
-  globError : string | undefined;
+  globError: string | undefined;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {}
+  constructor(private fb: FormBuilder, private http: HttpClient, private customerService: CustomerService) { }
 
   customerFg = this.fb.group({
     nameCtrl: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
@@ -20,7 +21,7 @@ export class CustomersComponent {
     economicCodeCtrl: [''],
     mobilePhoneCtrl: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
     phoneNumberCtrl: [''],
-    stateCtrl: ['', [Validators.required,Validators.minLength(2), Validators.maxLength(30)]],
+    stateCtrl: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
     cityCtrl: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
     addressCtrl: [''],
     factoryAddressCtrl: [''],
@@ -72,18 +73,33 @@ export class CustomersComponent {
       zipeCode: this.ZipeCodeCtrl.value
     }
 
-    this.http.post<Customers>('http://localhost:5000/api/customers/customers/', customers).subscribe(
+  //   this.http.post<Customers>('http://localhost:5000/api/customers/customers/', customers).subscribe(
+  //     {
+  //       next: res => {
+  //         this.customerRes = res;
+  //         console.log(res);
+  //         this.customerFg.reset();
+  //       },
+  //       error : err => {
+  //         console.log(err.error);
+  //         this.globError = err.error}
+  //     }
+  //   );
+  // }
+
+    // this.customerFg.reset();
+    
+    this.customerService.postCustomer(customers).subscribe(
       {
         next: res => {
-          this.customerRes = res;
-          console.log(res);
+          alert("مشتری با موفقیت ثبت شد");
           this.customerFg.reset();
         },
-        error : err => {
+        error: err => {
           console.log(err.error);
-          this.globError = err.error}
+          this.globError = err.error
+        }
       }
     );
-    this.customerFg.reset();
   }
 }
