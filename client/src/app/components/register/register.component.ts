@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Register } from 'src/app/models/register.model';
+import { RegisterService } from 'src/app/services/register.service';
 
 @Component({
   selector: 'app-register',
@@ -12,8 +13,11 @@ export class RegisterComponent {
   hide = true;
 
   registerRes: Register | undefined;
+  globError: string | undefined;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {}
+  userTitle: string[] = ["مدیر ارشد", "مدیر اجرایی و اداری", "مسئول فروش", "مدیر تولید"];
+
+  constructor(private fb: FormBuilder, private http: HttpClient, private registerService: RegisterService) { }
 
   registerFg = this.fb.group({
     firstNameCtrl: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
@@ -62,27 +66,42 @@ export class RegisterComponent {
   register(): void {
     console.log(this.registerFg.value);
 
-    let register: Register = {
+    let registerInput: Register = {
       firstName: this.FirstNameCtrl.value,
       lastName: this.LastNameCtrl.value,
       userName: this.UserNameCtrl.value,
       password: this.PasswordCtrl.value,
-      confirmPassword:this.ConfirmPasswordCtrl.value,
+      confirmPassword: this.ConfirmPasswordCtrl.value,
       userTitle: this.UserTitleCtrl.value,
-      userRole:this.UserRoleCtrl.value,
-      address:this.AddressCtrl.value,
+      userRole: this.UserRoleCtrl.value,
+      address: this.AddressCtrl.value,
       phoneNumber: this.PhoneNumberCtrl.value,
       email: this.EmailCtrl.value
     }
 
-    this.http.post<Register>('http://localhost:5000/api/register/register', register).subscribe(
+    this.registerService.register(registerInput).subscribe(
       {
-        next: res => {
-          this.registerRes = res;
-          console.log(res);
+        next: response => {
+          alert("کاربر با موفقیت ثبت شد");
+          this.registerFg.reset();
+        },
+        error: err => {
+          this.globError = err.error
+          alert(this.globError)
         }
       }
     );
-    this.registerFg.reset();
   }
 }
+
+  //   this.http.post<Register>('http://localhost:5000/api/register/register', registerInput).subscribe(
+  //     {
+  //       next: res => {
+  //         this.registerRes = res;
+  //         console.log(res);
+  //       }
+  //     }
+  //   );
+  //   this.registerFg.reset();
+  // }
+

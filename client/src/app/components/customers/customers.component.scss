@@ -1,21 +1,57 @@
-form{
-  height: calc(100vh - 8rem);
-  flex-direction: row-reverse;
-  margin-right: 10rem;
+@font-face {
+  font-family: b-nazanin;
+  src: url(/../assets/fonts/B-NAZANIN.TTF);
+}
 
-  h1{
+form {
+  height: calc(100vh - 8.4rem);
+  flex-direction: row-reverse;
+
+  h1 {
+    margin-top: 0.4rem;
     display: flex;
     flex-direction: row-reverse;
+    background-image: url("../../../assets/images/path.gif");
+    background-repeat: no-repeat;
+    color: white;
+
+    span {
+      margin: 1rem;
+      margin-right: 2rem;
+      font-family: b-nazanin;
+      font-size: 21pt;
+      font-weight: bold;
+    }
   }
+
   div {
+    margin-right: 10rem;
     display: flex;
     flex-direction: row;
     flex-direction: row-reverse;
     gap: 5rem;
-    // justify-content: first baseline;
+
+    mat-label {
+      float: right;
+      font-family: b-nazanin;
+      color: black;
+      font-family: 14pt;
+    }
+
+    input {
+      border-color: red;
+      // background-color: red;
+      border-style: dashed;
+    }
   }
 
-  .address{
+  button {
+    font-family: b-nazanin;
+    color: white;
+    font-family: 14pt;
+  }
+
+  .address {
     min-width: 50rem;
   }
 }

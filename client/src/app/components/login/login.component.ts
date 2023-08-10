@@ -14,7 +14,7 @@ export class LoginComponent {
   hide = true;
 
   globLogin: Login | undefined;
-  globError : string | undefined;
+  globError: string | undefined;
 
   constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) { }
 
@@ -35,11 +35,12 @@ export class LoginComponent {
       {
         next: res => {
           this.globLogin = res
-            this.router.navigateByUrl('/home');
+          this.router.navigateByUrl('/home');
         },
-        error : err => {
+        error: err => {
           console.log(err.error);
-          this.globError = err.error}
+          this.globError = err.error
+        }
       }
     )
   }

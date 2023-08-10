@@ -88,7 +88,7 @@ export class CustomersComponent {
   // }
 
     // this.customerFg.reset();
-    
+
     this.customerService.postCustomer(customers).subscribe(
       {
         next: res => {
@@ -98,6 +98,7 @@ export class CustomersComponent {
         error: err => {
           console.log(err.error);
           this.globError = err.error
+          alert(this.globError)
         }
       }
     );

@@ -1,17 +1,17 @@
 @font-face {
-  font-family: BDAVAT;
-  src: url(/../assets/fonts/BDAVAT.TTF);
+  font-family: b-nazanin;
+  src: url(/../assets/fonts/B-NAZANIN.TTF);
 }
-div{
+
+div {
   display: flex;
   flex-direction: row;
   height: calc(100vh - 8rem);
   align-items: center;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  font-family: 'Bdavat';
 
-  section{
+  section {
     display: flex;
     flex-direction: row;
   }
@@ -21,10 +21,22 @@ div{
     display: flex;
     max-width: 140px;
     max-height: 150px;
-
     cursor: pointer;
-    mat-card-actions{
+
+    img {
+      background-color: white;
+      // position: absolute;
+      // border: none;
+    }
+
+    mat-card-actions {
       justify-content: center;
-    }     
-  }  
+    }
+
+    h3 {
+      font-family: 'b-nazanin';
+      font-weight: bold;
+      font-size: 16pt;
+    }
+  }
 }

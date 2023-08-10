@@ -1,6 +1,6 @@
 <div>
   <section class="section-1">
-    <p>Logo</p>
+    <img src="../../../assets/images/logo.gif" alt="">
   </section>
 
   <section class="section-2">
@@ -9,7 +9,7 @@
       <mat-form-field appearance="outline">
         <mat-label>نام کاربری</mat-label>
         <input type="text" formControlName="userNameCtrl" matInput>
-        <mat-error>نام کاربری را واریز کنید</mat-error>
+        <mat-error>نام کاربری را وارد کنید</mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>رمز عبور</mat-label>
@@ -20,7 +20,7 @@
         </button>
         <mat-error>رمز عبور را وارد کنید</mat-error>
       </mat-form-field>
-        <button (click)="Login()" mat-raised-button >
+      <button (click)="Login()" mat-raised-button>
         ورود
       </button>
       <mat-error>{{globError}}</mat-error>

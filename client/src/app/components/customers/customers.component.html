@@ -1,5 +1,7 @@
 <form [formGroup]="customerFg" (ngSubmit)="customer()">
-  <h1> افزودن مشتری جدید</h1>
+  <h1 class="h-1">
+    <span>افزودن مشتری جدید</span>
+  </h1>
 
   <div>
     <mat-form-field appearance="outline">
@@ -57,7 +59,6 @@
   </div>
 
   <div>
-  <button type="submit" [disabled]="customerFg.invalid" mat-raised-button color="primary">دخیره</button>
-  <mat-error>{{globError}}</mat-error>
+    <button type="submit" [disabled]="customerFg.invalid" mat-raised-button color="primary">دخیره</button>
   </div>
 </form>

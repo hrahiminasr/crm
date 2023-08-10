@@ -27,7 +27,7 @@ public class RegisterController : ControllerBase
         bool hasDocs = _collection.AsQueryable().Where<Register>(p => p.UserName == userInput.UserName).Any();
 
         if (hasDocs)
-            return BadRequest($"فردی قبلا با شماره {userInput.UserName} ثبت نام کرده است.");
+            return BadRequest($"این شماره تلفن قبلا ثبت شده است");
 
         Register register = new Register(
             Id: null,

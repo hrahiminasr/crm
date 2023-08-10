@@ -20,18 +20,18 @@
   </div>
 
   <div class="section2">
-    <button routerLink="home" mat-button> صفحه اصلی</button>
+    <button routerLink="home" mat-button> صفحه‌اصلی</button>
     <button mat-button [matMenuTriggerFor]="customerMenu">مشتریان</button>
     <mat-menu #customerMenu="matMenu" yPosition="below">
       <button routerLink="customers" mat-menu-item>ثبت مشتری</button>
-      <button routerLink="customersList" mat-menu-item>اطلاعات مشتریان</button>
+      <button routerLink="customersList" mat-menu-item>لیست مشتریان</button>
     </mat-menu>
     <button mat-button [matMenuTriggerFor]="orderMenu">سفارشات</button>
     <mat-menu #orderMenu="matMenu" yPosition="below">
       <button mat-menu-item>افزودن کالا</button>
       <button mat-menu-item>ثبت سفارش</button>
     </mat-menu>
-    <button mat-button>ارسال پیغام</button>
-    <button mat-button>تیکت ها</button>
+    <button mat-button>ارسال‌پیغام</button>
+    <button mat-button>تیکت‌ها</button>
   </div>
 </mat-toolbar>

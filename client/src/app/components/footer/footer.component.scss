@@ -1,3 +1,8 @@
+@font-face {
+  font-family: b-nazanin;
+  src: url(/../assets/fonts/B-NAZANIN.TTF);
+}
+
 mat-toolbar{
   background: #7f00ff;
   display: flex;
@@ -7,6 +12,8 @@ mat-toolbar{
 
   span{
     direction: rtl;
-
+    font-family: b-nazanin;
+    font-weight: bold;
+    font-size: 16pt;
   }
 }

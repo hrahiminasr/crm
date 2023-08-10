@@ -1,10 +1,6 @@
 @font-face {
-  font-family: BDAVAT;
-  src: url(/../assets/fonts/BDAVAT.TTF);
-}
-@font-face {
-  font-family: serif;
-  src: url(/../assets/fonts/Mj_Serif_0.ttf);
+  font-family: b-nazanin;
+  src: url(/../assets/fonts/B-NAZANIN.TTF);
 }
 
 mat-toolbar {
@@ -17,8 +13,9 @@ mat-toolbar {
   }
 
   button{
-    font-family: 'BDAVAT';
-    font-size: 15pt;
+    font-family: 'b-nazanin';
+    font-size: 16pt;
     color: white;
+    font-weight: bold;
   }
 }

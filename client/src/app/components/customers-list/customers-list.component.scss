@@ -1,13 +1,47 @@
+@font-face {
+  font-family: b-nazanin;
+  src: url(/../assets/fonts/B-NAZANIN.TTF);
+}
+
+h1 {
+  margin-top: 0.4rem;
+  display: flex;
+  flex-direction: row-reverse;
+  background-image: url("../../../assets/images/path.gif");
+  background-repeat: no-repeat;
+  color: white;
+
+  span {
+    margin: 1rem;
+    margin-right: 2rem;
+    font-family: b-nazanin;
+    font-size: 21pt;
+    font-weight: bold;
+  }
+}
+
+button {
+  font-family: b-nazanin;
+  font-size: 14pt;
+  border-radius: 5rem;
+}
+
 .section1 {
   display: flex;
   padding-top: 1rem;
   gap: 55rem;
   justify-content: center;
+
+  mat-label {
+    font-family: b-nazanin;
+    color: black;
+    font-size: 14pt;
+  }
 }
 
 .section2 {
   overflow: auto;
-  height: calc(100vh - 13.9rem);
+  height: calc(100vh - 19.3rem);
 
   table {
     border-collapse: collapse;
@@ -19,7 +53,9 @@
       text-align: left;
       border-bottom: 1px solid #ddd;
       text-align: center;
-
+      font-family: b-nazanin;
+      color: black;
+      font-size: 14pt;
     }
   }
 }

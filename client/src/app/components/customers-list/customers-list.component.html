@@ -1,27 +1,32 @@
-<section class="section1">
-    <mat-form-field appearance="fill">
-      <mat-label>جست و جو</mat-label>
-      <input matInput />
-      <mat-icon matPrefix>search</mat-icon>
-    </mat-form-field>
+<h1>
+  <span>لیست مشتریان</span>
+</h1>
 
-    <button routerLink="/customers" mat-raised-button color="accent">مشتری جدید</button>
-  </section>
-  <section class="section2">
-    <table>
-      <tr>
-        <th>حذف</th>
-        <th>اصلاح</th>
-        <th>موبایل</th>
-        <th>شهر</th>
-        <th>نام</th>
-      </tr>
-      <tr *ngFor="let customers of customers">
-        <td><button (click)="deleteCustomer(customers.mobilePhone)">حذف</button></td>
-        <td><button>اصلاح</button></td>
-        <td>{{customers.mobilePhone}}</td>
-        <td>{{customers.city}}</td>
-        <td>{{customers.name}}</td>
-      </tr>
-    </table>
-  </section>
+<section class="section1">
+  <mat-form-field appearance="fill">
+    <mat-label>جست و جو</mat-label>
+    <input matInput />
+    <mat-icon matPrefix>search</mat-icon>
+  </mat-form-field>
+
+  <button routerLink="/customers" mat-raised-button color="accent">مشتری جدید</button>
+</section>
+
+<section class="section2">
+  <table>
+    <tr>
+      <th>حذف</th>
+      <th>اصلاح</th>
+      <th>موبایل</th>
+      <th>شهر</th>
+      <th>نام</th>
+    </tr>
+    <tr *ngFor="let customers of customers">
+      <td><button (click)="deleteCustomer(customers.mobilePhone)">حذف</button></td>
+      <td><button>اصلاح</button></td>
+      <td>{{customers.mobilePhone}}</td>
+      <td>{{customers.city}}</td>
+      <td>{{customers.name}}</td>
+    </tr>
+  </table>
+</section>

@@ -9,6 +9,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+// Error state matcher
+import { ErrorStateMatcher } from '@angular/material/core';
+import { DefaultErrorStateMatcher } from './default-error-state.matcher';
+
 //Materiall
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
@@ -73,7 +77,9 @@ import { ProductComponent } from './components/product/product.component';
     CdkTableModule,
     MatSelectModule,
   ],
-  providers: [],
+  providers: [
+    { provide: ErrorStateMatcher, useClass: DefaultErrorStateMatcher }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

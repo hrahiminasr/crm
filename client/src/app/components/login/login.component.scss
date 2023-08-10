@@ -1,3 +1,8 @@
+@font-face {
+  font-family: b-nazanin;
+  src: url(/../assets/fonts/B-NAZANIN.TTF);
+}
+
 div {
   display: flex;
   justify-content: space-evenly;
@@ -9,14 +14,20 @@ div {
     flex-grow: 1;
     text-align: center;
 
-    p {
-      margin-top: 15rem;
+    img {
+      margin-top: 12rem;
     }
   }
 
   .section-2 {
     margin-top: 5rem;
     flex-grow: 1;
+
+    h2 {
+      font-family: 'b-nazanin';
+      font-weight: bold;
+      font-size: 14pt;
+    }
 
     form {
       display: flex;
@@ -26,11 +37,20 @@ div {
       gap: 1rem;
 
       :nth-child(4) {
-        background: #7f00ff
+        background: #7f00ff;
+        font-family: b-nazanin;
+        font-size: 14pt;
+        color: white;
       }
 
-      mat-form-field{
+      mat-form-field {
         min-width: 16rem;
+
+        mat-label {
+          font-family: 'b-nazanin';
+          color: black;
+          font-size: 14pt;
+        }
       }
     }
   }

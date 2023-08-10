@@ -1,5 +1,8 @@
-<form [formGroup]="registerFg">
-  <h2>ثبت نام کاربر</h2>
+<form [formGroup]="registerFg" (ngSubmit)="register()">
+  <h1>
+    <span>ثبت نام کاربر</span>
+  </h1>
+
   <div>
     <mat-form-field appearance="outline">
       <mat-label>نام</mat-label>
@@ -37,13 +40,18 @@
   <div>
     <mat-form-field appearance="outline">
       <mat-label>سمت</mat-label>
-      <input type="text" formControlName="userTitleCtrl" matInput>
+      <mat-select formControlName="userTitleCtrl">
+        <mat-option *ngFor="let user of userTitle" [value]="user">
+          {{user}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>نقش</mat-label>
       <input type="text" formControlName="userRoleCtrl" matInput>
     </mat-form-field>
   </div>
+
   <div>
     <mat-form-field appearance="outline" class="address">
       <mat-label>آدرس</mat-label>
@@ -60,6 +68,6 @@
   </div>
 
   <div>
-    <button (click)="register()" [disabled]="registerFg.invalid" mat-raised-button color="primary">ثبت</button>
+    <button type="submit" [disabled]="registerFg.invalid" mat-raised-button color="primary">ثبت</button>
   </div>
 </form>
