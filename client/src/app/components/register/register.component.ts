@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Register } from 'src/app/models/register.model';
+import { RegisterById } from 'src/app/models/registerById';
 import { RegisterService } from 'src/app/services/register.service';
 
 @Component({
@@ -14,6 +15,7 @@ export class RegisterComponent {
 
   registerRes: Register | undefined;
   globError: string | undefined;
+  // globShow: RegisterById | undefined;
 
   userTitle: string[] = ["مدیر ارشد", "مدیر اجرایی و اداری", "مسئول فروش", "مدیر تولید"];
 
@@ -79,29 +81,32 @@ export class RegisterComponent {
       email: this.EmailCtrl.value
     }
 
-    this.registerService.register(registerInput).subscribe(
+//     this.registerService.register(registerInput).subscribe(
+//       {
+//         next: response => {
+//           alert("کاربر با موفقیت ثبت شد");
+//           this.registerFg.reset();
+//         },
+//         error: err => {
+//           this.globError = err.error
+//           alert(this.globError)
+//         }
+//       }
+//     );
+//   }
+// }
+
+
+    this.http.post<Register>('http://localhost:5000/api/register/register', registerInput).subscribe(
       {
-        next: response => {
-          alert("کاربر با موفقیت ثبت شد");
-          this.registerFg.reset();
-        },
-        error: err => {
-          this.globError = err.error
-          alert(this.globError)
+        next: res => {
+          // this.globShow = res;
+          this.registerRes = res;
+          console.log(res);
         }
       }
     );
+    this.registerFg.reset();
   }
 }
-
-  //   this.http.post<Register>('http://localhost:5000/api/register/register', registerInput).subscribe(
-  //     {
-  //       next: res => {
-  //         this.registerRes = res;
-  //         console.log(res);
-  //       }
-  //     }
-  //   );
-  //   this.registerFg.reset();
-  // }
 

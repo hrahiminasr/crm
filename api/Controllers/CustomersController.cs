@@ -23,13 +23,13 @@ public class CustomersController : ControllerBase
         bool hasDocs = _collection.AsQueryable().Where<Customers>(p => p.MobilePhone.Trim() == cusInput.MobilePhone.Trim()).Any();
 
         if (hasDocs)
-        return BadRequest(". این مشتری قبلا ثبت شده است");
+            return BadRequest(". این مشتری قبلا ثبت شده است");
 
         Customers customers = new Customers(
             Id: null,
             Name: cusInput.Name.Trim().ToLower(),
             NationallCode: cusInput.NationallCode?.Trim(),
-            EconomicCode:cusInput.EconomicCode?.Trim(),
+            EconomicCode: cusInput.EconomicCode?.Trim(),
             MobilePhone: cusInput.MobilePhone.Trim(),
             PhoneNumber: cusInput.PhoneNumber?.Trim(),
             State: cusInput.State.Trim().ToLower(),
@@ -44,7 +44,7 @@ public class CustomersController : ControllerBase
         return customers;
     }
 
-        [HttpGet("get-all")]
+    [HttpGet("get-all")]
     public ActionResult<IEnumerable<Customers>> GetAll()
     {
         List<Customers> customers = _collection.Find<Customers>(new BsonDocument()).ToList();

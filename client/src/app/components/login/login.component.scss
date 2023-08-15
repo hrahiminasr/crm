@@ -3,6 +3,11 @@
   src: url(/../assets/fonts/B-NAZANIN.TTF);
 }
 
+@font-face {
+  font-family: b-titr;
+  src: url(/../assets/fonts/B-Titr.ttf);
+}
+
 div {
   display: flex;
   justify-content: space-evenly;
@@ -14,8 +19,15 @@ div {
     flex-grow: 1;
     text-align: center;
 
+    p{
+      margin-top: 2rem;
+      font-family: b-titr;
+      font-size: 25pt;
+      color: white;
+    }
+
     img {
-      margin-top: 12rem;
+      margin-top: 2rem;
     }
   }
 
