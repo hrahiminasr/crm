@@ -1,10 +1,8 @@
-namespace api.Models;
+namespace api.DTOs;
 
-public record Order(
-    [property: BsonId, BsonRepresentation(BsonType.ObjectId)] string? Id,
+public record OrderUserDto(
+    string Id,
     string CustomerName,
-    string MobilePhone,
-    string City,
     string Date,
     int Number,
     int Row,

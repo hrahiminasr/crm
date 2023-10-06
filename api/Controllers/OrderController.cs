@@ -1,45 +1,33 @@
-using api.Models;
-using api.Settings;
-using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
-
 namespace api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
 public class OrderController : ControllerBase
-{
-    private readonly IMongoCollection<Order> _collection;
-    public OrderController(IMongoClient client, IMongoDbSettings dbSettings)
-    {
-        var dbName = client.GetDatabase(dbSettings.DatabaseName);
-        _collection = dbName.GetCollection<Order>("orders");
-    }
+{   
+    #region Token Setting
+        private readonly IOrderRepository _orderrepository;
 
+        public OrderController(IOrderRepository orderRepository)
+        {
+            _orderrepository = orderRepository;
+        }
+    #endregion Token Setting
+
+    /// <summary>
+    /// Insert Order
+    /// Concurrency => async is used
+    /// </summary>
+    /// <param name="userInput"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [HttpPost("add-order")]
-    public ActionResult<Order> create(Order userInput)
+    public async Task<ActionResult<OrderUserDto>> Create(OrderDto userInput, CancellationToken cancellationToken)
     {
-        bool hasDocs = _collection.AsQueryable().Where<Order>(p => p.Number == userInput.Number).Any();
+        OrderUserDto? orderUserDto = await _orderrepository.Create(userInput, cancellationToken);
 
-        if (hasDocs)
+        if (orderUserDto is null)
             return BadRequest("این شماره سفارش قبلا ثبت شده است");
 
-        Order order = new Order(
-            Id: null,
-            CustomerName: userInput.CustomerName.ToLower().Trim(),
-            MobilePhone: userInput.MobilePhone.Trim(),
-            City: userInput.City.Trim().ToLower(),
-            Date: userInput.Date.Trim(),
-            Number: userInput.Number,
-            Row: userInput.Row,
-            Product: userInput.Product.ToLower().Trim(),
-            ProductNumber: userInput.ProductNumber,
-            Unit: userInput.Unit.ToLower().Trim(),
-            Description: userInput.Description?.Trim()
-        );
-
-        _collection.InsertOne(order);
-
-        return order;
+        return orderUserDto; 
     }
 }

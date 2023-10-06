@@ -1,3 +1,4 @@
+using api.Repositories;
 using api.Settings;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
@@ -29,11 +30,15 @@ builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
 #region Cors: baraye ta'eede Angular HttpClient requests
 builder.Services.AddCors(options =>
     {
-        options.AddDefaultPolicy(policy =>
-            policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
+        options.AddDefaultPolicy(policy => 
+            policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
     });
 #endregion Cors
 
+#region Dependecy Injection
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+#endregion Dependecy Injection
 // Add services to the container.
 
 builder.Services.AddControllers();
