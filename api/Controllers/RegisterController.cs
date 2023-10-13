@@ -61,28 +61,37 @@ public class RegisterController : ControllerBase
 
     /// <summary>
     /// login user
+    /// Concurrency => async is used
     /// </summary>
     /// <param name="userName"></param>
     /// <param name="password"></param>
     /// <returns></returns>
-    // [HttpGet("get-by-username/{UserName}/{Password}")]
-    // public ActionResult<Register> Login(string userName, string password)
-    // {
-    //     Register login = _collection.Find<Register>(login =>
-    //     login.UserName == userName.Trim().ToLower()
-    //     && login.Password == password).FirstOrDefault();
+    [HttpPost("Login")]
+    public async Task<ActionResult<LoginUserDto>> Login(LoginDto userName, CancellationToken cancellationToken)
+    {
+        LoginUserDto? loginUserDto = await _accountRepository.Login(userName, cancellationToken);
 
-    //     if (login is null)
-    //         return Unauthorized(".نام کاربری یا رمز عبور اشتباه می باشد");
+        if (loginUserDto is null)
+            return Unauthorized(".نام کاربری یا رمز عبور اشتباه می باشد");
 
-    //     return login;
-    // }
+        return loginUserDto;
+    }
 
-    // [HttpGet("get-by-userside")]
-    // public ActionResult<IEnumerable<Register>> LoginAdmin()
-    // {
-    //     List<Register> loginAdmin = _collection.Find<Register>(loginAdmin => loginAdmin.UserRole == "admin").ToList();
+    /// <summary>
+    /// get user by userName
+    /// Concurrency => async is used
+    /// </summary>
+    /// <param name="userInput"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpGet("get-by-userName/{userInput}")]
+    public async Task<ActionResult<GetUserDto?>> GetByUserName(string userInput, CancellationToken cancellationToken)
+    {
+        GetUserDto? getUserDto = await _accountRepository.GetByUserName(userInput, cancellationToken);
 
-    //     return loginAdmin;
-    // }
+        if(getUserDto is null)
+            return NotFound("این نام کاربری وجود ندارد");
+
+        return getUserDto;
+    }
 }

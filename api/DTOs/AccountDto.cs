@@ -12,3 +12,8 @@ public record RegistertDto(
     [MinLength(11), MaxLength(11)] string PhoneNumber,
     [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$", ErrorMessage = "Bad Email Format.")] string? Email
 );
+
+public record LoginDto(
+    string UserName,
+    string Password
+);

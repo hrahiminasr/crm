@@ -11,3 +11,18 @@ public record UserDto(
     string PhoneNumber,
     string? Email
 );
+
+public record LoginUserDto(
+    string Id,
+    string UserName
+);
+
+public record GetUserDto(
+    string Id,
+    string FirstName,
+    string LastName,
+    string UserTitle,
+    string UserRole,
+    string PhoneNumber,
+    string? Email
+);

@@ -1,76 +1,75 @@
+using Microsoft.OpenApi.Any;
+using MongoDB.Bson.Serialization.Serializers;
+
 namespace api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
 public class CustomersController : ControllerBase
 {
-    private readonly IMongoCollection<Customers> _collection;
-    public CustomersController(IMongoClient client, IMongoDbSettings dbSettings)
+    private readonly ICustomersRepository _customersRepository;
+
+    public CustomersController(ICustomersRepository customersRepository)
     {
-        var dbName = client.GetDatabase(dbSettings.DatabaseName);
-        _collection = dbName.GetCollection<Customers>("customers");
+        _customersRepository = customersRepository;
     }
 
+    /// <summary>
+    /// create customers
+    /// Concurrency => async is used
+    /// </summary>
+    /// <param name="cusInput"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [HttpPost("customers")]
-    public ActionResult<Customers> create(Customers cusInput)
+    public async Task<ActionResult<CustomersUserDto?>> Create(RegisterCustomersDto cusInput, CancellationToken cancellationToken)
     {
-        bool hasDocs = _collection.AsQueryable().Where<Customers>(p => p.MobilePhone.Trim() == cusInput.MobilePhone.Trim()).Any();
+        CustomersUserDto? customersUserDto = await _customersRepository.Create(cusInput, cancellationToken);
 
-        if (hasDocs)
+        if (customersUserDto is null)
             return BadRequest(". این مشتری قبلا ثبت شده است");
 
-        Customers customers = new Customers(
-            Id: null,
-            Name: cusInput.Name.Trim().ToLower(),
-            NationallCode: cusInput.NationallCode?.Trim(),
-            EconomicCode: cusInput.EconomicCode?.Trim(),
-            MobilePhone: cusInput.MobilePhone.Trim(),
-            PhoneNumber: cusInput.PhoneNumber?.Trim(),
-            State: cusInput.State.Trim().ToLower(),
-            City: cusInput.City.Trim().ToLower(),
-            Address: cusInput.Address?.Trim(),
-            FactoryAddress: cusInput.FactoryAddress?.Trim(),
-            ZipeCode: cusInput.ZipeCode?.Trim()
-        );
-
-        _collection.InsertOne(customers);
-
-        return customers;
+        return customersUserDto;
     }
 
-    [HttpGet("get-all")]
-    public ActionResult<IEnumerable<Customers>> GetAll()
-    {
-        List<Customers> customers = _collection.Find<Customers>(new BsonDocument()).ToList();
+    // [HttpGet("get-all")]
+    // public async Task<ActionResult<IEnumerable<Customers>>> GetAll()
+    // {
+    //     List<Customers>? customers = await _customersRepository.GetAll(IEnumerable<>);
 
-        if (!customers.Any())
-            return NoContent();
+    //     if (customers is null)
+    //         return NoContent();
 
-        return customers;
-    }
+    //     return customers;
+    // }
 
+    /// <summary>
+    /// delet customer
+    /// Concurrency => async is used
+    /// </summary>
+    /// <param name="userMobilePhone"></param>
+    /// <returns></returns>
     [HttpDelete("delete/{userMobilePhone}")]
-    public ActionResult<DeleteResult> Delete(string userMobilePhone)
+    public async Task<ActionResult<DeleteResult>> Delete(string userMobilePhone)
     {
+        DeleteResult? deleteResult = await _customersRepository.Delete(userMobilePhone);
 
-        return _collection.DeleteOne<Customers>(doc => doc.MobilePhone == userMobilePhone);
+        return deleteResult;
     }
 
-    [HttpPut("update/{userMobilePhone}")]
-    public ActionResult<UpdateResult> UpdateUserById(string userMobilePhone, Customers userIn)
+    /// <summary>
+    /// update customer
+    /// Concurrency => async is used
+    /// </summary>
+    /// <param name="userId"></param>
+    /// <param name="userIn"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpPut("update/{userId}")]
+    public async Task<ActionResult<UpdateResult>> UpdateUserById(string userId, Customers userIn, CancellationToken cancellationToken)
     {
-        var updateUser = Builders<Customers>.Update
-        .Set(doc => doc.Name, userIn.Name)
-        .Set(doc => doc.NationallCode, userIn.NationallCode)
-        .Set(doc => doc.EconomicCode, userIn.EconomicCode)
-        .Set(doc => doc.MobilePhone, userIn.MobilePhone)
-        .Set(doc => doc.PhoneNumber, userIn.PhoneNumber)
-        .Set(doc => doc.State, userIn.State)
-        .Set(doc => doc.City, userIn.City)
-        .Set(doc => doc.Address, userIn.Address)
-        .Set(doc => doc.FactoryAddress, userIn.FactoryAddress)
-        .Set(doc => doc.ZipeCode, userIn.ZipeCode);
+        UpdateResult? updateResult = await _customersRepository.UpdateUserById(userId, userIn, cancellationToken);
 
-        return _collection.UpdateOne<Customers>(doc => doc.PhoneNumber == userMobilePhone, updateUser);
+        return updateResult;
     }
 }

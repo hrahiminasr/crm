@@ -1,8 +1,3 @@
-using api.Repositories;
-using api.Settings;
-using Microsoft.Extensions.Options;
-using MongoDB.Driver;
-
 var builder = WebApplication.CreateBuilder(args);
 
 #region MongoDbSettings
@@ -38,6 +33,7 @@ builder.Services.AddCors(options =>
 #region Dependecy Injection
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<ICustomersRepository, CustomersRepository>();
 #endregion Dependecy Injection
 // Add services to the container.
 
