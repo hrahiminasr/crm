@@ -51,24 +51,24 @@ public class AccountRepository : IAccountRepository
 
             return userDto;
         }
-        
+
         return null;
     }
 
-        public async Task<LoginUserDto?> Login(LoginDto userName, CancellationToken cancellationToken)
+    public async Task<LoginUserDto?> Login(LoginDto userName, CancellationToken cancellationToken)
     {
-        Register register =await _collection.Find<Register>(login =>
+        Register register = await _collection.Find<Register>(login =>
         login.UserName == userName.UserName.Trim().ToLower()
         && login.Password == userName.Password).FirstOrDefaultAsync(cancellationToken);
 
         if (register is null)
             return null;
 
-        if(register.Id is not null)
+        if (register.Id is not null)
         {
             LoginUserDto loginUserDto = new LoginUserDto(
                 Id: register.Id,
-                UserName: register.UserName 
+                UserName: register.UserName
             );
 
             return loginUserDto;
@@ -77,14 +77,14 @@ public class AccountRepository : IAccountRepository
         return null;
     }
 
-        public async Task<GetUserDto?> GetByUserName(string userInput, CancellationToken cancellationToken)
+    public async Task<GetUserDto?> GetByUserName(string userInput, CancellationToken cancellationToken)
     {
-        Register user =await _collection.Find(user => user.UserName == userInput.ToLower().Trim()).FirstOrDefaultAsync(cancellationToken);
+        Register user = await _collection.Find(user => user.UserName == userInput.ToLower().Trim()).FirstOrDefaultAsync(cancellationToken);
 
-        if(user is null)
+        if (user is null)
             return null;
 
-        if(user.Id is not null)
+        if (user.Id is not null)
         {
             GetUserDto getUserDto = new GetUserDto(
                 Id: user.Id,

@@ -38,7 +38,7 @@ public class RegisterController : ControllerBase
 
         UserDto? userDto = await _accountRepository.Create(userInput, cancellationToken);
 
-        if(userDto is null)
+        if (userDto is null)
             return BadRequest($"این نام کاربری قبلا ثبت شده است");
 
         return userDto;
@@ -89,7 +89,7 @@ public class RegisterController : ControllerBase
     {
         GetUserDto? getUserDto = await _accountRepository.GetByUserName(userInput, cancellationToken);
 
-        if(getUserDto is null)
+        if (getUserDto is null)
             return NotFound("این نام کاربری وجود ندارد");
 
         return getUserDto;

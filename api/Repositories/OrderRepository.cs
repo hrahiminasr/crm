@@ -8,7 +8,7 @@ public class OrderRepository : IOrderRepository
     {
         var dbName = client.GetDatabase(dbSettings.DatabaseName);
         _collection = dbName.GetCollection<Order>(_collectionName);
-    }    
+    }
 
     public async Task<OrderUserDto?> Create(OrderDto userInput, CancellationToken cancellationToken)
     {
@@ -31,10 +31,10 @@ public class OrderRepository : IOrderRepository
             Description: userInput.Description?.Trim()
         );
 
-        if(_collection is not null)
-        await _collection.InsertOneAsync(order, null, cancellationToken);
+        if (_collection is not null)
+            await _collection.InsertOneAsync(order, null, cancellationToken);
 
-        if(order.Id is not null)
+        if (order.Id is not null)
         {
             OrderUserDto orderUserDto = new OrderUserDto(
                 Id: order.Id,
