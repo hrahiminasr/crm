@@ -1,11 +1,6 @@
-using Microsoft.OpenApi.Any;
-using MongoDB.Bson.Serialization.Serializers;
-
 namespace api.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class CustomersController : ControllerBase
+public class CustomersController : BaseApiController
 {
     private readonly ICustomersRepository _customersRepository;
 
@@ -32,16 +27,21 @@ public class CustomersController : ControllerBase
         return customersUserDto;
     }
 
-    // [HttpGet("get-all")]
-    // public async Task<ActionResult<IEnumerable<Customers>>> GetAll()
-    // {
-    //     List<Customers>? customers = await _customersRepository.GetAll(IEnumerable<>);
+    /// <summary>
+    /// get all
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpGet("get-all")]
+    public async Task<ActionResult<IEnumerable<CustomersUserDto>>> GetAll(CancellationToken cancellationToken)
+    {
+        List<CustomersUserDto> customersUserDtos = await _customersRepository.GetAllAsync(cancellationToken);
 
-    //     if (customers is null)
-    //         return NoContent();
+        if (!customersUserDtos.Any())
+            return NoContent();
 
-    //     return customers;
-    // }
+        return customersUserDtos;
+    }
 
     /// <summary>
     /// delet customer

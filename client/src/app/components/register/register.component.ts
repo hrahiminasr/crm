@@ -81,32 +81,32 @@ export class RegisterComponent {
       email: this.EmailCtrl.value
     }
 
-//     this.registerService.register(registerInput).subscribe(
-//       {
-//         next: response => {
-//           alert("کاربر با موفقیت ثبت شد");
-//           this.registerFg.reset();
-//         },
-//         error: err => {
-//           this.globError = err.error
-//           alert(this.globError)
-//         }
-//       }
-//     );
-//   }
-// }
-
-
-    this.http.post<Register>('http://localhost:5000/api/register/register', registerInput).subscribe(
+    this.registerService.register(registerInput).subscribe(
       {
-        next: res => {
-          // this.globShow = res;
-          this.registerRes = res;
-          console.log(res);
+        next: response => {
+          alert("کاربر با موفقیت ثبت شد");
+          this.registerFg.reset();
+        },
+        error: err => {
+          this.globError = err.error
+          alert(this.globError)
         }
       }
     );
-    this.registerFg.reset();
   }
 }
+
+
+  //   this.http.post<Register>('http://localhost:5000/api/register/register', registerInput).subscribe(
+  //     {
+  //       next: res => {
+  //         // this.globShow = res;
+  //         this.registerRes = res;
+  //         console.log(res);
+  //       }
+  //     }
+  //   );
+  //   this.registerFg.reset();
+  // }
+// }
 

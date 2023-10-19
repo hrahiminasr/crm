@@ -4,7 +4,7 @@ public interface ICustomersRepository
 {
     public Task<CustomersUserDto?> Create(RegisterCustomersDto cusInput, CancellationToken cancellationToken);
 
-    public Task<IEnumerable<Customers>> GetAll();
+    public Task<List<CustomersUserDto>> GetAllAsync(CancellationToken cancellationToken);
 
      public Task<DeleteResult> Delete(string userMobilePhone);
 

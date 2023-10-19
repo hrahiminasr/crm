@@ -14,7 +14,7 @@ export class RegisterService {
   constructor(private http: HttpClient) { }
 
   register(registerInput: Register): Observable<RegisterById | null> {
-    return this.http.post<RegisterById>('http://localhost:5000/api/register/register', registerInput)
+    return this.http.post<RegisterById>('https://localhost:5001/api/register/register', registerInput)
       .pipe(
         map(register => {
           if (register) {

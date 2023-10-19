@@ -101,4 +101,33 @@ public class AccountRepository : IAccountRepository
 
         return null;
     }
+
+    public async Task<List<GetUserDto>> GetAllAsync(CancellationToken cancellationToken)
+    {
+        List<Register> registers = await _collection.Find<Register>(new BsonDocument()).ToListAsync(cancellationToken);
+
+        List<GetUserDto> getUserDtos = new List<GetUserDto>();
+
+        if (registers.Any())
+        {
+            foreach (Register register in registers)
+            {
+                GetUserDto getUserDto = new GetUserDto(
+                    Id: register.Id!,
+                    FirstName: register.FirstName,
+                    LastName: register.LastName,
+                    UserTitle: register.UserTitle,
+                    UserRole: register.UserRole,
+                    PhoneNumber: register.PhoneNumber,
+                    Email: register.Email
+                );
+
+                getUserDtos.Add(getUserDto);
+            }
+
+            return getUserDtos;
+        }
+
+        return getUserDtos;
+    }
 }

@@ -7,4 +7,6 @@ public interface IAccountRepository
     public Task<LoginUserDto> Login(LoginDto userName, CancellationToken cancellationToken);
 
     public Task<GetUserDto?> GetByUserName(string userInput, CancellationToken cancellationToken);
+
+    public  Task<List<GetUserDto>> GetAllAsync(CancellationToken cancellationToken);
 }

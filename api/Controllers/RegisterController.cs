@@ -1,10 +1,6 @@
-using api.DTOs;
-
 namespace api.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class RegisterController : ControllerBase
+public class RegisterController : BaseApiController
 {
     /// <summary>
     /// repository
@@ -48,16 +44,16 @@ public class RegisterController : ControllerBase
     /// show get all account
     /// </summary>
     /// <returns></returns>
-    // [HttpGet("get-all")]
-    // public ActionResult<IEnumerable<Register>> GetAll()
-    // {
-    //     List<Register> registers = _collection.Find<Register>(new BsonDocument()).ToList();
+    [HttpGet("get-all")]
+    public async Task<ActionResult<IEnumerable<GetUserDto>>> GetAll(CancellationToken cancellationToken)
+    {
+        List<GetUserDto> getUserDtos = await _accountRepository.GetAllAsync(cancellationToken);
 
-    //     if (!registers.Any())
-    //         return NoContent();
+        if (!getUserDtos.Any())
+            return NoContent();
 
-    //     return registers;
-    // }
+        return getUserDtos;
+    }
 
     /// <summary>
     /// login user

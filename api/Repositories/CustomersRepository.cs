@@ -1,3 +1,5 @@
+using MongoDB.Bson.Serialization.Conventions;
+
 namespace api.Repositories;
 
 public class CustomersRepository : ICustomersRepository
@@ -51,14 +53,31 @@ public class CustomersRepository : ICustomersRepository
         return null;
     }
 
-    public async Task<IEnumerable<Customers>?> GetAll()
+    public async Task<List<CustomersUserDto>?> GetAllAsync(CancellationToken cancellationToken)
     {
-        List<Customers> customers = await _collection.Find<Customers>(new BsonDocument()).ToListAsync();
+        List<Customers> customers = await _collection.Find<Customers>(new BsonDocument()).ToListAsync(cancellationToken);
 
-        if (!customers.Any())
-            return null;
+        List<CustomersUserDto> customersUserDtos = new List<CustomersUserDto>();
 
-        return customers;
+        if (customers.Any())
+        {
+            foreach (Customers customer in customers)
+            {
+                CustomersUserDto customersUserDto = new CustomersUserDto(
+                    Id: customer.Id,
+                    Name: customer.Name,
+                    MobilePhone: customer.MobilePhone,
+                    State: customer.State,
+                    City: customer.City
+                );
+
+                customersUserDtos.Add(customersUserDto);
+            }
+
+            return customersUserDtos;
+        }
+        
+        return customersUserDtos;
     }
 
     public async Task<DeleteResult> Delete(string userMobilePhone)

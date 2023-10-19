@@ -1,8 +1,6 @@
 namespace api.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class OrderController : ControllerBase
+public class OrderController : BaseApiController
 {   
     #region Token Setting
         private readonly IOrderRepository _orderrepository;
