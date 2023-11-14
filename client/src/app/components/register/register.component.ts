@@ -13,8 +13,10 @@ import { RegisterService } from 'src/app/services/register.service';
 export class RegisterComponent {
   hide = true;
 
-  registerRes: Register | undefined;
-  globError: string | undefined;
+  // registerRes: Register | undefined;
+  // globError: string | undefined;
+  passwordsNotMatch: boolean | undefined;
+  apiErrorMassage: string | undefined;
   // globShow: RegisterById | undefined;
 
   userTitle: string[] = ["مدیر ارشد", "مدیر اجرایی و اداری", "مسئول فروش", "مدیر تولید"];
@@ -66,47 +68,54 @@ export class RegisterComponent {
   }
 
   register(): void {
-    console.log(this.registerFg.value);
+    this.apiErrorMassage = undefined;
 
-    let registerInput: Register = {
-      firstName: this.FirstNameCtrl.value,
-      lastName: this.LastNameCtrl.value,
-      userName: this.UserNameCtrl.value,
-      password: this.PasswordCtrl.value,
-      confirmPassword: this.ConfirmPasswordCtrl.value,
-      userTitle: this.UserTitleCtrl.value,
-      userRole: this.UserRoleCtrl.value,
-      address: this.AddressCtrl.value,
-      phoneNumber: this.PhoneNumberCtrl.value,
-      email: this.EmailCtrl.value
-    }
+    if (this.PasswordCtrl.value === this.ConfirmPasswordCtrl.value) {
+      this.passwordsNotMatch = false;
 
-    this.registerService.register(registerInput).subscribe(
-      {
-        next: response => {
-          alert("کاربر با موفقیت ثبت شد");
-          this.registerFg.reset();
-        },
-        error: err => {
-          this.globError = err.error
-          alert(this.globError)
-        }
+      let registerInput: Register = {
+        firstName: this.FirstNameCtrl.value,
+        lastName: this.LastNameCtrl.value,
+        userName: this.UserNameCtrl.value,
+        password: this.PasswordCtrl.value,
+        confirmPassword: this.ConfirmPasswordCtrl.value,
+        userTitle: this.UserTitleCtrl.value,
+        userRole: this.UserRoleCtrl.value,
+        address: this.AddressCtrl.value,
+        phoneNumber: this.PhoneNumberCtrl.value,
+        email: this.EmailCtrl.value
       }
-    );
+
+      this.registerService.register(registerInput).subscribe(
+        {
+          next: response => {
+            alert("کاربر با موفقیت ثبت شد");
+            this.registerFg.reset();
+          },
+          error: err => {
+            this.apiErrorMassage = err.error
+            alert(this.apiErrorMassage)
+          }
+        }
+      );
+    }
+    else {
+      this.passwordsNotMatch = true;
+    }
   }
 }
 
 
-  //   this.http.post<Register>('http://localhost:5000/api/register/register', registerInput).subscribe(
-  //     {
-  //       next: res => {
-  //         // this.globShow = res;
-  //         this.registerRes = res;
-  //         console.log(res);
-  //       }
-  //     }
-  //   );
-  //   this.registerFg.reset();
-  // }
+//   this.http.post<Register>('http://localhost:5000/api/register/register', registerInput).subscribe(
+//     {
+//       next: res => {
+//         // this.globShow = res;
+//         this.registerRes = res;
+//         console.log(res);
+//       }
+//     }
+//   );
+//   this.registerFg.reset();
+// }
 // }
 

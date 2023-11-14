@@ -12,7 +12,7 @@ public class CustomersRepository : ICustomersRepository
         _collection = dbName.GetCollection<Customers>(_collectionName);
     }
 
-    public async Task<CustomersUserDto?> Create(RegisterCustomersDto cusInput, CancellationToken cancellationToken)
+    public async Task<CustomersUserDto?> CreateAsync(RegisterCustomersDto cusInput, CancellationToken cancellationToken)
     {
         bool doesExist = await _collection.Find<Customers>(custom =>
             custom.MobilePhone.Trim() == cusInput.MobilePhone.Trim()).AnyAsync(cancellationToken);
@@ -80,12 +80,12 @@ public class CustomersRepository : ICustomersRepository
         return customersUserDtos;
     }
 
-    public async Task<DeleteResult> Delete(string userMobilePhone)
+    public async Task<DeleteResult> DeleteAsync(string userMobilePhone)
     {
         return await _collection.DeleteOneAsync<Customers>(doc => doc.MobilePhone == userMobilePhone);
     }
 
-    public async Task<UpdateResult> UpdateUserById(string userId, Customers userIn, CancellationToken cancellationToken)
+    public async Task<UpdateResult> UpdateUserByIdAsync(string userId, Customers userIn, CancellationToken cancellationToken)
     {
         var updateUser = Builders<Customers>.Update
         .Set(doc => doc.Name, userIn.Name)

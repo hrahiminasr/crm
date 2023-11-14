@@ -10,7 +10,7 @@ public class OrderRepository : IOrderRepository
         _collection = dbName.GetCollection<Order>(_collectionName);
     }
 
-    public async Task<OrderUserDto?> Create(OrderDto userInput, CancellationToken cancellationToken)
+    public async Task<OrderUserDto?> CreateAsync(OrderDto userInput, CancellationToken cancellationToken)
     {
         bool hasDocs = await _collection.Find<Order>(p => p.Number == userInput.Number).AnyAsync(cancellationToken);
 

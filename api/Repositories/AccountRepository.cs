@@ -10,7 +10,7 @@ public class AccountRepository : IAccountRepository
         _collection = dbName.GetCollection<Register>(_collectionName);
     }
 
-    public async Task<UserDto?> Create(RegistertDto userInput, CancellationToken cancellationToken)
+    public async Task<UserDto?> CreateAsync(RegistertDto userInput, CancellationToken cancellationToken)
     {
         bool hasDocs = await _collection.Find<Register>(p =>
         p.UserName == userInput.UserName).AnyAsync(cancellationToken);
@@ -55,7 +55,7 @@ public class AccountRepository : IAccountRepository
         return null;
     }
 
-    public async Task<LoginUserDto?> Login(LoginDto userName, CancellationToken cancellationToken)
+    public async Task<LoginUserDto?> LoginAsync(LoginDto userName, CancellationToken cancellationToken)
     {
         Register register = await _collection.Find<Register>(login =>
         login.UserName == userName.UserName.Trim().ToLower()
@@ -77,7 +77,7 @@ public class AccountRepository : IAccountRepository
         return null;
     }
 
-    public async Task<GetUserDto?> GetByUserName(string userInput, CancellationToken cancellationToken)
+    public async Task<GetUserDto?> GetByUserNameAsync(string userInput, CancellationToken cancellationToken)
     {
         Register user = await _collection.Find(user => user.UserName == userInput.ToLower().Trim()).FirstOrDefaultAsync(cancellationToken);
 

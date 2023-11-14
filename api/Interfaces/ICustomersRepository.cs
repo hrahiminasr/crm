@@ -2,11 +2,11 @@ namespace api.Interfaces;
 
 public interface ICustomersRepository
 {
-    public Task<CustomersUserDto?> Create(RegisterCustomersDto cusInput, CancellationToken cancellationToken);
+    public Task<CustomersUserDto?> CreateAsync(RegisterCustomersDto cusInput, CancellationToken cancellationToken);
 
     public Task<List<CustomersUserDto>> GetAllAsync(CancellationToken cancellationToken);
 
-     public Task<DeleteResult> Delete(string userMobilePhone);
+     public Task<DeleteResult> DeleteAsync(string userMobilePhone);
 
-     public Task<UpdateResult> UpdateUserById(string userId, Customers userIn, CancellationToken cancellationToken);
+     public Task<UpdateResult> UpdateUserByIdAsync(string userId, Customers userIn, CancellationToken cancellationToken);
 }
