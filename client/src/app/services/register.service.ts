@@ -2,29 +2,21 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Register } from '../models/register.model';
 import { BehaviorSubject, Observable, map } from 'rxjs';
-import { RegisterById } from '../models/registerById';
+import { LoginUser } from '../models/loginUser.model';
+import { RegisterUser } from '../models/registerUser.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegisterService {
-  private currentRegisterSource = new BehaviorSubject<RegisterById | null>(null);
+  private currentRegisterSource = new BehaviorSubject<RegisterUser | null>(null);
   currentAdmin$ = this.currentRegisterSource.asObservable();
 
   constructor(private http: HttpClient) { }
 
-  register(registerInput: Register): Observable<RegisterById | null> {
-    return this.http.post<RegisterById>('https://localhost:5001/api/register/register', registerInput)
-      .pipe(
-        map(register => {
-          if (register) {
-            this.currentRegisterSource.next(register);
-
-            return register
-          }
-
-          return null
-        })
-      )
+  register(userInput: Register): Observable<RegisterUser | null> {
+    return this.http.post<RegisterUser>('https://localhost:5001/api/register/register', userInput).pipe(
+      map(register => register)
+    )
   }
 }

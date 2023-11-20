@@ -1,8 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Register } from 'src/app/models/register.model';
-import { RegisterById } from 'src/app/models/registerById';
 import { RegisterService } from 'src/app/services/register.service';
 
 @Component({
@@ -21,7 +20,7 @@ export class RegisterComponent {
 
   userTitle: string[] = ["مدیر ارشد", "مدیر اجرایی و اداری", "مسئول فروش", "مدیر تولید"];
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private registerService: RegisterService) { }
+  constructor(private fb: FormBuilder, private registerService: RegisterService, private router: Router) { }
 
   registerFg = this.fb.group({
     firstNameCtrl: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
@@ -73,7 +72,7 @@ export class RegisterComponent {
     if (this.PasswordCtrl.value === this.ConfirmPasswordCtrl.value) {
       this.passwordsNotMatch = false;
 
-      let registerInput: Register = {
+      let userInput: Register = {
         firstName: this.FirstNameCtrl.value,
         lastName: this.LastNameCtrl.value,
         userName: this.UserNameCtrl.value,
@@ -86,11 +85,12 @@ export class RegisterComponent {
         email: this.EmailCtrl.value
       }
 
-      this.registerService.register(registerInput).subscribe(
+      this.registerService.register(userInput).subscribe(
         {
           next: response => {
             alert("کاربر با موفقیت ثبت شد");
-            this.registerFg.reset();
+            this.router.navigateByUrl('/home');
+
           },
           error: err => {
             this.apiErrorMassage = err.error
@@ -104,18 +104,4 @@ export class RegisterComponent {
     }
   }
 }
-
-
-//   this.http.post<Register>('http://localhost:5000/api/register/register', registerInput).subscribe(
-//     {
-//       next: res => {
-//         // this.globShow = res;
-//         this.registerRes = res;
-//         console.log(res);
-//       }
-//     }
-//   );
-//   this.registerFg.reset();
-// }
-// }
 

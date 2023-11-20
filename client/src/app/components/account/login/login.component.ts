@@ -3,7 +3,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router, RouterEvent, RouterLink } from '@angular/router';
 import { Login } from 'src/app/models/login.model';
-import { NotFoundComponent } from '../not-found/not-found.component';
+import { NotFoundComponent } from '../../not-found/not-found.component';
+import { LoginService } from 'src/app/services/login.service';
+import { LoginUser } from 'src/app/models/loginUser.model';
 
 @Component({
   selector: 'app-login',
@@ -13,10 +15,9 @@ import { NotFoundComponent } from '../not-found/not-found.component';
 export class LoginComponent {
   hide = true;
 
-  globLogin: Login | undefined;
-  globError: string | undefined;
+  apiErrorMassage: string | undefined;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) { }
+  constructor(private loginServices: LoginService, private fb: FormBuilder, private router: Router) { }
 
   loginFg = this.fb.group({
     userNameCtrl: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]],
@@ -30,18 +31,19 @@ export class LoginComponent {
     return this.loginFg.get('passwordCtrl') as FormControl;
   }
 
-  Login(): void {
-    this.http.get<Login>('http://localhost:5000/api/register/get-by-username/' + this.UserNameCtrl.value + '/' + this.PasswordCtrl.value).subscribe(
-      {
-        next: res => {
-          this.globLogin = res
-          this.router.navigateByUrl('/home');
-        },
-        error: err => {
-          console.log(err.error);
-          this.globError = err.error
-        }
-      }
-    )
+  login(): void {
+    this.apiErrorMassage = undefined;
+
+    let login: LoginUser = {
+      userName: this.UserNameCtrl.value,
+      password: this.PasswordCtrl.value
+    }
+
+    this.loginServices.login(login).subscribe({
+      next: login => {
+        this.router.navigateByUrl('/home');
+      },
+      error: err => this.apiErrorMassage = err.error
+    })
   }
 }

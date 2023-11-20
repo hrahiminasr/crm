@@ -2,7 +2,7 @@ namespace api.Interfaces;
 
 public interface IAccountRepository
 {
-    public Task<UserDto?> CreateAsync(RegistertDto userInput, CancellationToken cancellationToken);
+    public Task<LoginUserDto?> CreateAsync(RegistertDto userInput, CancellationToken cancellationToken);
 
     public Task<LoginUserDto> LoginAsync(LoginDto userName, CancellationToken cancellationToken);
 

@@ -25,19 +25,19 @@ public class RegisterController : BaseApiController
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpPost("register")]
-    public async Task<ActionResult<UserDto>> Create(RegistertDto userInput, CancellationToken cancellationToken)
+    public async Task<ActionResult<LoginUserDto>> Create(RegistertDto userInput, CancellationToken cancellationToken)
     {
         if (userInput.Password != userInput.ConfirmPassword)
         {
             return BadRequest(".کلمه عبور با تکرار کلمه عبور یکسان نیست");
         }
 
-        UserDto? userDto = await _accountRepository.Create(userInput, cancellationToken);
+        LoginUserDto? loginUserDto = await _accountRepository.CreateAsync(userInput, cancellationToken);
 
-        if (userDto is null)
+        if (loginUserDto is null)
             return BadRequest($"این نام کاربری قبلا ثبت شده است");
 
-        return userDto;
+        return loginUserDto;
     }
 
     /// <summary>
@@ -65,7 +65,7 @@ public class RegisterController : BaseApiController
     [HttpPost("Login")]
     public async Task<ActionResult<LoginUserDto>> Login(LoginDto userName, CancellationToken cancellationToken)
     {
-        LoginUserDto? loginUserDto = await _accountRepository.Login(userName, cancellationToken);
+        LoginUserDto? loginUserDto = await _accountRepository.LoginAsync(userName, cancellationToken);
 
         if (loginUserDto is null)
             return Unauthorized(".نام کاربری یا رمز عبور اشتباه می باشد");
@@ -83,7 +83,7 @@ public class RegisterController : BaseApiController
     [HttpGet("get-by-userName/{userInput}")]
     public async Task<ActionResult<GetUserDto?>> GetByUserName(string userInput, CancellationToken cancellationToken)
     {
-        GetUserDto? getUserDto = await _accountRepository.GetByUserName(userInput, cancellationToken);
+        GetUserDto? getUserDto = await _accountRepository.GetByUserNameAsync(userInput, cancellationToken);
 
         if (getUserDto is null)
             return NotFound("این نام کاربری وجود ندارد");

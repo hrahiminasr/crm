@@ -2,19 +2,19 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Customers } from '../models/customers.model';
 import { HttpClient } from '@angular/common/http';
+import { CustomerUser } from '../models/customerUser.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
-  private currentCustomerSource = new BehaviorSubject<Customers | null>(null);
+  private currentCustomerSource = new BehaviorSubject<CustomerUser | null>(null);
   currentCustomer$ = this.currentCustomerSource.asObservable();
 
   constructor(private http: HttpClient) { }
 
-  postCustomer(customers: Customers): Observable<Customers | null> {
-
-    return this.http.post<Customers>('https://localhost:5001/api/customers/customers', customers)
+  postCustomer(customerInput: Customers): Observable<CustomerUser | null> {
+    return this.http.post<CustomerUser>('https://localhost:5001/api/customers/customers', customerInput)
       .pipe(
         map(custom => {
           if (custom) {

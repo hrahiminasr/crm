@@ -14,7 +14,8 @@ public record UserDto(
 
 public record LoginUserDto(
     string Id,
-    string UserName
+    string UserName,
+    string Token
 );
 
 public record GetUserDto(

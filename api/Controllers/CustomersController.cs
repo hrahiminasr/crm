@@ -19,7 +19,7 @@ public class CustomersController : BaseApiController
     [HttpPost("customers")]
     public async Task<ActionResult<CustomersUserDto?>> Create(RegisterCustomersDto cusInput, CancellationToken cancellationToken)
     {
-        CustomersUserDto? customersUserDto = await _customersRepository.Create(cusInput, cancellationToken);
+        CustomersUserDto? customersUserDto = await _customersRepository.CreateAsync(cusInput, cancellationToken);
 
         if (customersUserDto is null)
             return BadRequest(". این مشتری قبلا ثبت شده است");
@@ -52,7 +52,7 @@ public class CustomersController : BaseApiController
     [HttpDelete("delete/{userMobilePhone}")]
     public async Task<ActionResult<DeleteResult>> Delete(string userMobilePhone)
     {
-        DeleteResult? deleteResult = await _customersRepository.Delete(userMobilePhone);
+        DeleteResult? deleteResult = await _customersRepository.DeleteAsync(userMobilePhone);
 
         return deleteResult;
     }
@@ -68,7 +68,7 @@ public class CustomersController : BaseApiController
     [HttpPut("update/{userId}")]
     public async Task<ActionResult<UpdateResult>> UpdateUserById(string userId, Customers userIn, CancellationToken cancellationToken)
     {
-        UpdateResult? updateResult = await _customersRepository.UpdateUserById(userId, userIn, cancellationToken);
+        UpdateResult? updateResult = await _customersRepository.UpdateUserByIdAsync(userId, userIn, cancellationToken);
 
         return updateResult;
     }

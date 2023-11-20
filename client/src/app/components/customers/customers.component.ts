@@ -10,10 +10,11 @@ import { CustomerService as CustomerService } from 'src/app/services/customer.se
   styleUrls: ['./customers.component.scss']
 })
 export class CustomersComponent {
-  customerRes: Customers | undefined;
-  globError: string | undefined;
+  // customerRes: Customers | undefined;
+  customerIsRegister: boolean | undefined;
+  apiErrorMassage: string | undefined;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private customerService: CustomerService) { }
+  constructor(private fb: FormBuilder, private customerService: CustomerService) { }
 
   customerFg = this.fb.group({
     nameCtrl: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
@@ -60,7 +61,9 @@ export class CustomersComponent {
   }
 
   customer(): void {
-    let customers: Customers = {
+    this.apiErrorMassage = undefined;
+
+    let customerInput: Customers = {
       name: this.NameCtrl.value,
       nationallCode: this.NationallCodeCtrl.value,
       economicCode: this.EconomicCodeCtrl.value,
@@ -73,34 +76,25 @@ export class CustomersComponent {
       zipeCode: this.ZipeCodeCtrl.value
     }
 
-  //   this.http.post<Customers>('http://localhost:5000/api/customers/customers/', customers).subscribe(
-  //     {
-  //       next: res => {
-  //         this.customerRes = res;
-  //         console.log(res);
-  //         this.customerFg.reset();
-  //       },
-  //       error : err => {
-  //         console.log(err.error);
-  //         this.globError = err.error}
-  //     }
-  //   );
-  // }
+    if (this.MobilePhoneCtrl.value == customerInput.mobilePhone) {
+      this.customerIsRegister = false;
 
-    // this.customerFg.reset();
-
-    this.customerService.postCustomer(customers).subscribe(
-      {
-        next: res => {
-          alert("مشتری با موفقیت ثبت شد");
-          this.customerFg.reset();
-        },
-        error: err => {
-          console.log(err.error);
-          this.globError = err.error
-          alert(this.globError)
+      this.customerService.postCustomer(customerInput).subscribe(
+        {
+          next: res => {
+            console.log(res)
+            alert("مشتری با موفقیت ثبت شد");
+            this.customerFg.reset();
+          },
+          error: err => {
+            console.log(err.error);
+            this.apiErrorMassage = err.error
+            alert(this.apiErrorMassage)
+          }
         }
-      }
-    );
+      );
+    }
+    else
+      this.customerIsRegister = true;
   }
 }

@@ -1,16 +1,20 @@
+using System.Text;
+
 namespace api.Repositories;
 
 public class AccountRepository : IAccountRepository
 {
     private const string _collectionName = "registers";
     private readonly IMongoCollection<Register> _collection;
-    public AccountRepository(IMongoClient client, IMongoDbSettings dbSettings)
+    private readonly ITokenService _tokenServices;
+    public AccountRepository(IMongoClient client, IMongoDbSettings dbSettings,ITokenService tokenService)
     {
         var dbName = client.GetDatabase(dbSettings.DatabaseName);
         _collection = dbName.GetCollection<Register>(_collectionName);
+        _tokenServices = tokenService;
     }
 
-    public async Task<UserDto?> CreateAsync(RegistertDto userInput, CancellationToken cancellationToken)
+    public async Task<LoginUserDto?> CreateAsync(RegistertDto userInput, CancellationToken cancellationToken)
     {
         bool hasDocs = await _collection.Find<Register>(p =>
         p.UserName == userInput.UserName).AnyAsync(cancellationToken);
@@ -18,13 +22,15 @@ public class AccountRepository : IAccountRepository
         if (hasDocs)
             return null;
 
+        using var hmac = new HMACSHA512();
+
         Register register = new Register(
             Id: null,
             FirstName: userInput.FirstName.Trim().ToLower(),
             LastName: userInput.LastName.Trim().ToLower(),
             UserName: userInput.UserName.ToLower().Trim(),
-            Password: userInput.Password,
-            ConfirmPassword: userInput.ConfirmPassword,
+            PasswordHash: hmac.ComputeHash(Encoding.UTF8.GetBytes(userInput.Password)),
+            PasswordSalt: hmac.Key,
             UserTitle: userInput.UserTitle,
             UserRole: userInput.UserRole,
             Address: userInput.Address,
@@ -37,19 +43,14 @@ public class AccountRepository : IAccountRepository
 
         if (register.Id is not null)
         {
-            UserDto userDto = new UserDto(
-                ID: register.Id,
-                FirstName: register.FirstName,
-                LastName: register.LastName,
-                UserName: register.UserName,
-                UserTitle: register.UserTitle,
-                UserRole: register.UserRole,
-                Address: register.Address,
-                PhoneNumber: register.PhoneNumber,
-                Email: register.Email
+            LoginUserDto loginUserDto = new LoginUserDto(
+                Id: register.Id,
+                Token: _tokenServices.CreateToken(register),
+                UserName:register.UserName
+                
             );
 
-            return userDto;
+            return loginUserDto;
         }
 
         return null;
@@ -58,20 +59,27 @@ public class AccountRepository : IAccountRepository
     public async Task<LoginUserDto?> LoginAsync(LoginDto userName, CancellationToken cancellationToken)
     {
         Register register = await _collection.Find<Register>(login =>
-        login.UserName == userName.UserName.Trim().ToLower()
-        && login.Password == userName.Password).FirstOrDefaultAsync(cancellationToken);
+        login.UserName == userName.UserName.Trim().ToLower()).FirstOrDefaultAsync(cancellationToken);
 
         if (register is null)
             return null;
 
-        if (register.Id is not null)
-        {
-            LoginUserDto loginUserDto = new LoginUserDto(
-                Id: register.Id,
-                UserName: register.UserName
-            );
+        using var hmac = new HMACSHA512(register.PasswordSalt!);
 
-            return loginUserDto;
+        var ComputedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userName.Password));
+
+        if (register.PasswordHash is not null && register.PasswordHash.SequenceEqual(ComputedHash))
+        {
+            if (register.Id is not null)
+            {
+                LoginUserDto loginUserDto = new LoginUserDto(
+                    Id: register.Id,
+                    UserName: register.UserName,
+                    Token: _tokenServices.CreateToken(register)
+                );
+
+                return loginUserDto;
+            }
         }
 
         return null;

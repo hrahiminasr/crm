@@ -12,5 +12,6 @@ global using api.Repositories;
 global using Microsoft.Extensions.Options;
 // global using MongoDB.Driver;
 global using api.Controllers.Helpers;
+global using System.Security.Cryptography;
 
 

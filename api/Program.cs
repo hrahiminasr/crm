@@ -1,3 +1,8 @@
+using System.Text;
+using api.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+
 var builder = WebApplication.CreateBuilder(args);
 
 #region MongoDbSettings
@@ -30,10 +35,30 @@ builder.Services.AddCors(options =>
     });
 #endregion Cors
 
+#region Authentication & Authorization
+string tokenValue = builder.Configuration["TokenKey"]!;
+
+if (!string.IsNullOrEmpty(tokenValue))
+{
+    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenValue)),
+                ValidateIssuer = false,
+                ValidateAudience = false
+            };
+        });
+}
+#endregion Authentication & Authorization
+
 #region Dependecy Injection
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<ICustomersRepository, CustomersRepository>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 #endregion Dependecy Injection
 // Add services to the container.
 
@@ -54,6 +79,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors();
+
+app.UseAuthentication(); // this line has to be between Cors and Authorization!
 
 app.UseAuthorization();
 

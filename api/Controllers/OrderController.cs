@@ -21,7 +21,7 @@ public class OrderController : BaseApiController
     [HttpPost("add-order")]
     public async Task<ActionResult<OrderUserDto>> Create(OrderDto userInput, CancellationToken cancellationToken)
     {
-        OrderUserDto? orderUserDto = await _orderrepository.Create(userInput, cancellationToken);
+        OrderUserDto? orderUserDto = await _orderrepository.CreateAsync(userInput, cancellationToken);
 
         if (orderUserDto is null)
             return BadRequest("این شماره سفارش قبلا ثبت شده است");
