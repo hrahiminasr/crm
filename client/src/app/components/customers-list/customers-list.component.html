@@ -21,12 +21,12 @@
       <th>شهر</th>
       <th>نام</th>
     </tr>
-    <tr *ngFor="let customers of customers">
-      <td><button (click)="deleteCustomer(customers.mobilePhone)">حذف</button></td>
+    <tr *ngFor="let customersList of customersList">
+      <!-- <td><button (click)="deleteCustomer(customers.mobilePhone)">حذف</button></td> -->
       <td><button>اصلاح</button></td>
-      <td>{{customers.mobilePhone}}</td>
-      <td>{{customers.city}}</td>
-      <td>{{customers.name}}</td>
+      <td>{{customersList.mobilePhone}}</td>
+      <td>{{customersList.city}}</td>
+      <td>{{customersList.name}}</td>
     </tr>
   </table>
 </section>
