@@ -22,4 +22,13 @@ export class CustomersListService {
       })
     )
   }
+
+  deleteCustomer(userMobilePhone: string): Observable<CustomerUser[] | null>{
+
+    return this.http.delete<CustomerUser[]>('http://localhost:5000/api/customers/delete/'+userMobilePhone).pipe(
+      map((customerList: CustomerUser[]) => {
+        return customerList;
+      })
+    )
+  }
 }
