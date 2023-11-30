@@ -5,7 +5,7 @@
   </section>
 
   <section class="section-2">
-    <form [formGroup]="loginFg">
+    <form [formGroup]="loginFg" (ngSubmit)="loginFg.valid && login()">
       <h2>ورود به صفحه کاربر</h2>
       <mat-form-field appearance="outline">
         <mat-label>نام کاربری</mat-label>
@@ -21,10 +21,10 @@
         </button>
         <mat-error>رمز عبور را وارد کنید</mat-error>
       </mat-form-field>
-      <button (click)="login()" mat-raised-button>
+      <button type="submit" [disabled]="loginFg.invalid" mat-raised-button>
         ورود
       </button>
-      <mat-error>{{apiErrorMassage}}</mat-error>
+      <mat-error >{{apiErrorMassage}}</mat-error>
     </form>
   </section>
 </div>

@@ -14,7 +14,7 @@ export class CustomerService {
   constructor(private http: HttpClient) { }
 
   postCustomer(customerInput: Customers): Observable<CustomerUser | null> {
-    return this.http.post<CustomerUser>('https://localhost:5001/api/customers/customers', customerInput)
+    return this.http.post<CustomerUser>('http://localhost:5000/api/customers/customers', customerInput)
       .pipe(
         map(custom => {
           if (custom) {

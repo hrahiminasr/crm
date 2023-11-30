@@ -1,19 +1,21 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, Observable, take } from 'rxjs';
 import { CustomerUser } from '../models/customerUser.model';
+import { AccountService } from './account.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomersListService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private accountServices: AccountService) { }
 
-  getAllCustomer():Observable<CustomerUser[] | null>{
-    return this.http.get<CustomerUser[]>('https://localhost:5001/api/customers/get-all').pipe(
+  getAllCustomer(): Observable<CustomerUser[] | null> {
+
+    return this.http.get<CustomerUser[]>('http://localhost:5000/api/customers/get-all').pipe(
       map((customersList: CustomerUser[]) => {
-        if(customersList)
+        if (customersList)
           return customersList;
 
         return null;

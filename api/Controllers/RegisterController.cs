@@ -1,22 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
+
 namespace api.Controllers;
 
-public class RegisterController : BaseApiController
+[Authorize]
+public class RegisterController(IAccountRepository _accountRepository) : BaseApiController
 {
-    /// <summary>
-    /// repository
-    /// </summary>
-    #region Token Settings
-    private readonly IAccountRepository _accountRepository;
-
-    // constructor - dependency injection
-    public RegisterController(IAccountRepository accountRepository)
-    {
-        _accountRepository = accountRepository;
-
-        // _tokenService = tokenService;
-    }
-    #endregion
-
     /// <summary>
     /// create account
     /// Concurrency => async is used
@@ -62,6 +50,7 @@ public class RegisterController : BaseApiController
     /// <param name="userName"></param>
     /// <param name="password"></param>
     /// <returns></returns>
+    [AllowAnonymous]
     [HttpPost("Login")]
     public async Task<ActionResult<LoginUserDto>> Login(LoginDto userName, CancellationToken cancellationToken)
     {

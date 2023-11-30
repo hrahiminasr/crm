@@ -1,14 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
+
 namespace api.Controllers;
 
-public class CustomersController : BaseApiController
+[Authorize]
+public class CustomersController(ICustomersRepository _customersRepository) : BaseApiController
 {
-    private readonly ICustomersRepository _customersRepository;
-
-    public CustomersController(ICustomersRepository customersRepository)
-    {
-        _customersRepository = customersRepository;
-    }
-
     /// <summary>
     /// create customers
     /// Concurrency => async is used

@@ -1,16 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
+
 namespace api.Controllers;
 
-public class OrderController : BaseApiController
+// [Authorize]
+public class OrderController(IOrderRepository _orderrepository) : BaseApiController
 {   
-    #region Token Setting
-        private readonly IOrderRepository _orderrepository;
-
-        public OrderController(IOrderRepository orderRepository)
-        {
-            _orderrepository = orderRepository;
-        }
-    #endregion Token Setting
-
     /// <summary>
     /// Insert Order
     /// Concurrency => async is used

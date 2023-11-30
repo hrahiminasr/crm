@@ -21,8 +21,8 @@
       <th>شهر</th>
       <th>نام</th>
     </tr>
-    <tr *ngFor="let customersList of customersList">
-      <!-- <td><button (click)="deleteCustomer(customers.mobilePhone)">حذف</button></td> -->
+    <tr *ngFor="let customersList of allCustomer$ | async">
+      <td><button (click)="deleteCustomer(customersList.mobilePhone)">حذف</button></td>
       <td><button>اصلاح</button></td>
       <td>{{customersList.mobilePhone}}</td>
       <td>{{customersList.city}}</td>

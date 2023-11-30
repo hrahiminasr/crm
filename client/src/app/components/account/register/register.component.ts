@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Register } from 'src/app/models/register.model';
-import { RegisterService } from 'src/app/services/register.service';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +20,7 @@ export class RegisterComponent {
 
   userTitle: string[] = ["مدیر ارشد", "مدیر اجرایی و اداری", "مسئول فروش", "مدیر تولید"];
 
-  constructor(private fb: FormBuilder, private registerService: RegisterService, private router: Router) { }
+  constructor(private fb: FormBuilder, private accountService: AccountService, private router: Router) { }
 
   registerFg = this.fb.group({
     firstNameCtrl: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
@@ -85,22 +85,23 @@ export class RegisterComponent {
         email: this.EmailCtrl.value
       }
 
-      this.registerService.register(userInput).subscribe(
-        {
-          next: response => {
-            alert("کاربر با موفقیت ثبت شد");
-            this.router.navigateByUrl('/home');
+      this.accountService.register(userInput).subscribe({
+        next: register => {
+          console.log(register);
+          alert("کاربر با موفقیت ثبت شد");
+          this.router.navigateByUrl('/home');
 
-          },
-          error: err => {
-            this.apiErrorMassage = err.error
-            alert(this.apiErrorMassage)
-          }
+        },
+        error: err => {
+          this.apiErrorMassage = err.error
+          alert(this.apiErrorMassage)
         }
-      );
+
+      })
     }
     else {
       this.passwordsNotMatch = true;
+      alert("کلمه عبور با تکرار کلمه عبور یکسان نیست");
     }
   }
 }

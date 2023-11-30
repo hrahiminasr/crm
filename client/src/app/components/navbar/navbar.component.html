@@ -8,7 +8,7 @@
         <mat-icon>settings</mat-icon>
         <span>تنظیمات</span>
       </button>
-      <button mat-menu-item>
+      <button *ngIf="user$ | async" (click)="logout()" mat-menu-item>
         <mat-icon aria-hidden="false">logout</mat-icon>
         <span>خروج</span>
       </button>

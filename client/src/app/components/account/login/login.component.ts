@@ -1,11 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Router, RouterEvent, RouterLink } from '@angular/router';
-import { Login } from 'src/app/models/login.model';
-import { NotFoundComponent } from '../../not-found/not-found.component';
-import { LoginService } from 'src/app/services/login.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginUser } from 'src/app/models/loginUser.model';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
   selector: 'app-login',
@@ -17,9 +13,9 @@ export class LoginComponent {
 
   apiErrorMassage: string | undefined;
 
-  constructor(private loginServices: LoginService, private fb: FormBuilder, private router: Router) { }
+  constructor(private accountServices: AccountService, private fb: FormBuilder) { }
 
-  loginFg = this.fb.group({
+  loginFg: FormGroup = this.fb.group({
     userNameCtrl: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]],
     passwordCtrl: ['', [Validators.required, Validators.minLength(8)]]
   });
@@ -39,9 +35,9 @@ export class LoginComponent {
       password: this.PasswordCtrl.value
     }
 
-    this.loginServices.login(login).subscribe({
-      next: login => {
-        this.router.navigateByUrl('/home');
+    this.accountServices.login(login).subscribe({
+      next: res => {
+        console.log(res)
       },
       error: err => this.apiErrorMassage = err.error
     })

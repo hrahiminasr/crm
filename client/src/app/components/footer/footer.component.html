@@ -3,5 +3,5 @@
     {{date   | date: "MM-dd-yyyy"}}
     {{date   | date: "HH:mm:ss"}}
   </span>
-  <span>کاربر :</span>
+  <span *ngIf="user">کاربر : {{user.userName}}</span>
 </mat-toolbar>

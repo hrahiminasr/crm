@@ -53,7 +53,7 @@ public class CustomersRepository : ICustomersRepository
         return null;
     }
 
-    public async Task<List<CustomersUserDto>?> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<List<CustomersUserDto>> GetAllAsync(CancellationToken cancellationToken)
     {
         List<Customers> customers = await _collection.Find<Customers>(new BsonDocument()).ToListAsync(cancellationToken);
 
