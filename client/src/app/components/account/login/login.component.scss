@@ -11,13 +11,14 @@
 div {
   display: flex;
   justify-content: space-evenly;
-  height: calc(100vh - 8rem);
+  height: calc(100vh);
 
   .section-1 {
     font-size: 5rem;
     background: #7f00ff;
     flex-grow: 1;
     text-align: center;
+    padding-top: 5rem;
 
     p{
       margin-top: 2rem;
@@ -34,6 +35,7 @@ div {
   .section-2 {
     margin-top: 5rem;
     flex-grow: 1;
+    padding-top: 2rem;
 
     h2 {
       font-family: 'b-nazanin';

@@ -1,5 +1,5 @@
 <header>
-    <nav>
+    <nav *ngIf="user$ | async">
         <app-navbar></app-navbar>
     </nav>
 </header>
@@ -8,6 +8,6 @@
     <router-outlet></router-outlet>
 </main>
 
-<footer>
+<footer *ngIf="user$ | async">
     <app-footer></app-footer>
 </footer>

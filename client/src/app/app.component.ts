@@ -1,19 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from './services/account.service';
 import { Login } from './models/login.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
 
   allCustomer: Login[] | undefined;
-  constructor(private accountServices: AccountService) {}
+
+  user$: Observable<Login | null> | undefined;
+
+  constructor(private accountServices: AccountService) { }
 
   ngOnInit(): void {
     this.getLocalStorageCurrentValue();
+
+    this.user$ = this.accountServices.currentUser$;
   }
 
   getLocalStorageCurrentValue(): void {
