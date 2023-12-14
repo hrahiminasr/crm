@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Customers } from '../models/customers.model';
 import { HttpClient } from '@angular/common/http';
@@ -8,10 +8,10 @@ import { CustomerUser } from '../models/customerUser.model';
   providedIn: 'root'
 })
 export class CustomerService {
+  private http = inject(HttpClient);
+  
   private currentCustomerSource = new BehaviorSubject<CustomerUser | null>(null);
   currentCustomer$ = this.currentCustomerSource.asObservable();
-
-  constructor(private http: HttpClient) { }
 
   postCustomer(customerInput: Customers): Observable<CustomerUser | null> {
     return this.http.post<CustomerUser>('http://localhost:5000/api/customers/customers', customerInput)

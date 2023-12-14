@@ -1,20 +1,32 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Customers } from 'src/app/models/customers.model';
-import { CustomerService as CustomerService } from 'src/app/services/customer.service';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CustomerService } from '../../services/customer.service';
+import { Customers } from '../../models/customers.model';
+import { CommonModule } from '@angular/common';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { RouterModule } from '@angular/router';
 
 @Component({
+  standalone: true,
   selector: 'app-customers',
   templateUrl: './customers.component.html',
-  styleUrls: ['./customers.component.scss']
+  styleUrls: ['./customers.component.scss'],
+  imports: [
+    CommonModule, RouterModule, FormsModule,
+    ReactiveFormsModule, MatFormFieldModule, MatButtonModule,
+    MatInputModule
+  ]
 })
 export class CustomersComponent {
+  private fb = inject(FormBuilder);
+  private customerService = inject(CustomerService);
+
   // customerRes: Customers | undefined;
   customerIsRegister: boolean | undefined;
   apiErrorMassage: string | undefined;
-
-  constructor(private fb: FormBuilder, private customerService: CustomerService) { }
 
   customerFg = this.fb.group({
     nameCtrl: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],

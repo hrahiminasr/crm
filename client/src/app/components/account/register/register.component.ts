@@ -1,15 +1,33 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Register } from 'src/app/models/register.model';
-import { AccountService } from 'src/app/services/account.service';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { AccountService } from '../../../services/account.service';
+import { Register } from '../../../models/register.model';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatOptionModule } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
+  standalone: true,
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
+  imports: [
+    CommonModule, RouterModule, FormsModule,
+    ReactiveFormsModule, MatFormFieldModule, MatIconModule,
+    MatOptionModule, MatButtonModule, MatInputModule,
+    MatSelectModule
+  ]
 })
 export class RegisterComponent {
+  private fb = inject(FormBuilder);
+  private accountService = inject(AccountService);
+  private router = inject(Router);
+
   hide = true;
 
   // registerRes: Register | undefined;
@@ -19,8 +37,6 @@ export class RegisterComponent {
   // globShow: RegisterById | undefined;
 
   userTitle: string[] = ["مدیر ارشد", "مدیر اجرایی و اداری", "مسئول فروش", "مدیر تولید"];
-
-  constructor(private fb: FormBuilder, private accountService: AccountService, private router: Router) { }
 
   registerFg = this.fb.group({
     firstNameCtrl: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],

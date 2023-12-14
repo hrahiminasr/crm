@@ -1,5 +1,5 @@
 import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { map, Observable, take } from 'rxjs';
 import { CustomerUser } from '../models/customerUser.model';
 import { AccountService } from './account.service';
@@ -8,8 +8,8 @@ import { AccountService } from './account.service';
   providedIn: 'root'
 })
 export class CustomersListService {
-
-  constructor(private http: HttpClient, private accountServices: AccountService) { }
+  private http = inject(HttpClient);
+  private accountServices = inject(AccountService);
 
   getAllCustomer(): Observable<CustomerUser[] | null> {
 
@@ -23,9 +23,9 @@ export class CustomersListService {
     )
   }
 
-  deleteCustomer(userMobilePhone: string): Observable<CustomerUser[] | null>{
+  deleteCustomer(userMobilePhone: string): Observable<CustomerUser[] | null> {
 
-    return this.http.delete<CustomerUser[]>('http://localhost:5000/api/customers/delete/'+userMobilePhone).pipe(
+    return this.http.delete<CustomerUser[]>('http://localhost:5000/api/customers/delete/' + userMobilePhone).pipe(
       map((customerList: CustomerUser[]) => {
         return customerList;
       })

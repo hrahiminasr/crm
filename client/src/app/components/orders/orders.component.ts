@@ -1,23 +1,40 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { FormArray,FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Customers } from 'src/app/models/customers.model';
-import { Order } from 'src/app/models/order.model';
+import { Component, OnInit, inject } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Customers } from '../../models/customers.model';
+import { Order } from '../../models/order.model';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { CommonModule } from '@angular/common';
 
 @Component({
+  standalone: true,
   selector: 'app-orders',
   templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.scss']
+  styleUrls: ['./orders.component.scss'],
+  imports: [
+    CommonModule, FormsModule, ReactiveFormsModule,
+    MatFormFieldModule, MatSelectModule
+  ]
 })
-export class OrdersComponent {
+export class OrdersComponent implements OnInit {
+  private fb = inject(FormBuilder);
+  private http = inject(HttpClient);
+
   ordersRes: Order | undefined;
-  globError : string | undefined;
+  globError: string | undefined;
   public invoiceForm: FormGroup | any;
-  todayDate : Date = new Date();
+  todayDate: Date = new Date();
   customers: Customers[] | undefined;
   counter = 1;
 
-  constructor(private fb:FormBuilder, private http:HttpClient){
+  // constructor(private fb: FormBuilder, private http: HttpClient) {
+  //   this.http.get<Customers[]>('http://localhost:5000/api/customers/get-all').subscribe(
+  //     { next: response => this.customers = response }
+  //   );
+  // } ----> change to ngOnInit
+
+  ngOnInit(): void {
     this.http.get<Customers[]>('http://localhost:5000/api/customers/get-all').subscribe(
       { next: response => this.customers = response }
     );
@@ -53,51 +70,51 @@ export class OrdersComponent {
 
 
   ordersFg = this.fb.group({
-    customerNamectrl:['',[Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
-    mobilePhoneCtrl: ['',[Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
-    cityCtrl: ['',[Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
-    dateCtrl:['',[Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-    numberCtrl: ['',[Validators.required, Validators.min(1), Validators.max(1000)]],
-    rowCtrl: ['',[Validators.required, Validators.min(1), Validators.max(100)]],
-    productCtrl: ['',[Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-    productNumbeCtrlr: ['',[Validators.required, Validators.min(1), Validators.max(1000)]],
-    unitCtrl: ['',[Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+    customerNamectrl: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+    mobilePhoneCtrl: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
+    cityCtrl: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
+    dateCtrl: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+    numberCtrl: ['', [Validators.required, Validators.min(1), Validators.max(1000)]],
+    rowCtrl: ['', [Validators.required, Validators.min(1), Validators.max(100)]],
+    productCtrl: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+    productNumbeCtrlr: ['', [Validators.required, Validators.min(1), Validators.max(1000)]],
+    unitCtrl: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
     descriptionCtrl: ['']
   });
 
-  get CustomerNamectrl(): FormControl{
+  get CustomerNamectrl(): FormControl {
     return this.ordersFg.get('customerNamectrl') as FormControl;
   }
-  get MobilePhoneCtrl(): FormControl{
+  get MobilePhoneCtrl(): FormControl {
     return this.ordersFg.get('mobilePhoneCtrl') as FormControl;
   }
-  get CityCtrl(): FormControl{
+  get CityCtrl(): FormControl {
     return this.ordersFg.get('cityCtrl') as FormControl;
   }
-  get DateCtrl(): FormControl{
+  get DateCtrl(): FormControl {
     return this.ordersFg.get('dateCtrl') as FormControl;
   }
-  get NumberCtrl(): FormControl{
+  get NumberCtrl(): FormControl {
     return this.ordersFg.get('numberCtrl') as FormControl;
   }
-  get RowCtrl(): FormControl{
+  get RowCtrl(): FormControl {
     return this.ordersFg.get('rowCtrl') as FormControl;
   }
-  get ProductCtrl(): FormControl{
+  get ProductCtrl(): FormControl {
     return this.ordersFg.get('productCtrl') as FormControl;
   }
-  get ProductNumbeCtrlr(): FormControl{
+  get ProductNumbeCtrlr(): FormControl {
     return this.ordersFg.get('productNumbeCtrlr') as FormControl;
   }
-  get UnitCtrl(): FormControl{
+  get UnitCtrl(): FormControl {
     return this.ordersFg.get('unitCtrl') as FormControl;
   }
-  get DescriptionCtrl(): FormControl{
+  get DescriptionCtrl(): FormControl {
     return this.ordersFg.get('descriptionCtrl') as FormControl;
   }
 
-  orders(): void{
-    let order: Order ={
+  orders(): void {
+    let order: Order = {
       customerName: this.CustomerNamectrl.value,
       mobilePhone: this.MobilePhoneCtrl.value,
       city: this.CityCtrl.value,
@@ -116,9 +133,10 @@ export class OrdersComponent {
           this.ordersRes = res;
           console.log(res);
         },
-        error : err => {
+        error: err => {
           console.log(err.error);
-          this.globError = err.error}
+          this.globError = err.error
+        }
       }
     );
     // this.ordersFg.reset();

@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { RegisterUser as login } from '../models/registerUser.model';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Register } from '../models/register.model';
 import { LoginUser } from '../models/loginUser.model';
@@ -11,10 +10,11 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AccountService {
+  private http = inject(HttpClient);
+  private router = inject(Router);
+
   private currentUserSource = new BehaviorSubject<Login | null>(null);
   currentUser$ = this.currentUserSource.asObservable();
-
-  constructor(private http: HttpClient, private router: Router) { }
 
   register(userInput: Register): Observable<Login> {
     return this.http.post<Login>('http://localhost:5000/api/register/register', userInput).pipe(

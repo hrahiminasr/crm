@@ -1,6 +1,6 @@
 <header>
     <nav *ngIf="user$ | async">
-        <app-navbar></app-navbar>
+        <app-navbar />
     </nav>
 </header>
 
@@ -9,5 +9,5 @@
 </main>
 
 <footer *ngIf="user$ | async">
-    <app-footer></app-footer>
+    <app-footer />
 </footer>

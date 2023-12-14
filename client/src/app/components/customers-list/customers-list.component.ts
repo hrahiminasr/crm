@@ -1,27 +1,39 @@
-import { Component } from '@angular/core';
-import { Customers } from 'src/app/models/customers.model';
-import { Router } from '@angular/router';
-import { CustomersListService } from 'src/app/services/customers-list.service';
-import { CustomerUser } from 'src/app/models/customerUser.model';
+import { Component, OnInit, inject } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
+import { CustomerUser } from '../../models/customerUser.model';
+import { Customers } from '../../models/customers.model';
+import { CustomersListService } from '../../services/customers-list.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
+  standalone: true,
   selector: 'app-customers-list',
   templateUrl: './customers-list.component.html',
-  styleUrls: ['./customers-list.component.scss']
+  styleUrls: ['./customers-list.component.scss'],
+  imports: [
+    CommonModule, RouterModule, MatFormFieldModule,
+    MatInputModule, MatIconModule
+  ]
 })
-export class CustomersListComponent {
+export class CustomersListComponent implements OnInit {
+  private customerListServices = inject(CustomersListService);
+  private router = inject(Router);
+
   allCustomer: CustomerUser[] | null | undefined;
   custom: Customers | undefined;
   allCustomer$: Observable<CustomerUser[] | null> | undefined;
 
-  constructor(private customerListServices: CustomersListService, private router: Router) {
-    customerListServices.getAllCustomer().subscribe({
+  ngOnInit(): void {
+    this.customerListServices.getAllCustomer().subscribe({
       next: customerList => this.allCustomer = customerList,
       error: err => console.log(err)
     });
 
-    this.allCustomer$ = customerListServices.getAllCustomer();
+    this.allCustomer$ = this.customerListServices.getAllCustomer();
   }
 
   deleteCustomer(userMobilePhone: string) {

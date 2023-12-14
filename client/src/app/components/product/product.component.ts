@@ -1,14 +1,21 @@
-import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit, inject } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
+  standalone: true,
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.scss']
+  styleUrls: ['./product.component.scss'],
+  imports: [
+    CommonModule, FormsModule, ReactiveFormsModule
+  ]
 })
-export class ProductComponent {
+export class ProductComponent implements OnInit{
+  private _fb = inject(FormBuilder);
+
   public invoiceForm: FormGroup | any;
-  constructor(private _fb: FormBuilder) {}
+
   ngOnInit() {
     this.invoiceForm = this._fb.group({
       Rows: this._fb.array([this.initRows()])
