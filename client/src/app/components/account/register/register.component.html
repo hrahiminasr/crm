@@ -41,9 +41,11 @@
     <mat-form-field appearance="outline">
       <mat-label>سمت</mat-label>
       <mat-select formControlName="userTitleCtrl">
-        <mat-option *ngFor="let user of userTitle" [value]="user">
+        @for (user of userTitle; track $index) {
+        <mat-option [value]="user">
           {{user}}
         </mat-option>
+        }
       </mat-select>
     </mat-form-field>
     <mat-form-field appearance="outline">

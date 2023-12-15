@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { map, Observable, take } from 'rxjs';
 import { CustomerUser } from '../models/customerUser.model';
 import { AccountService } from './account.service';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,11 @@ export class CustomersListService {
   private http = inject(HttpClient);
   private accountServices = inject(AccountService);
 
+  private readonly baseApiUrl: string = environment.apiUrl + 'customers/';
+
   getAllCustomer(): Observable<CustomerUser[] | null> {
 
-    return this.http.get<CustomerUser[]>('http://localhost:5000/api/customers/get-all').pipe(
+    return this.http.get<CustomerUser[]>(this.baseApiUrl + 'get-all').pipe(
       map((customersList: CustomerUser[]) => {
         if (customersList)
           return customersList;
@@ -25,7 +28,7 @@ export class CustomersListService {
 
   deleteCustomer(userMobilePhone: string): Observable<CustomerUser[] | null> {
 
-    return this.http.delete<CustomerUser[]>('http://localhost:5000/api/customers/delete/' + userMobilePhone).pipe(
+    return this.http.delete<CustomerUser[]>(this.baseApiUrl + 'delete/' + userMobilePhone).pipe(
       map((customerList: CustomerUser[]) => {
         return customerList;
       })

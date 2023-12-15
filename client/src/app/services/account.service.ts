@@ -5,6 +5,7 @@ import { Register } from '../models/register.model';
 import { LoginUser } from '../models/loginUser.model';
 import { Login } from '../models/login.model';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -13,17 +14,19 @@ export class AccountService {
   private http = inject(HttpClient);
   private router = inject(Router);
 
+  private readonly baseApiUrl: string = environment.apiUrl + 'register/';
+
   private currentUserSource = new BehaviorSubject<Login | null>(null);
   currentUser$ = this.currentUserSource.asObservable();
 
   register(userInput: Register): Observable<Login> {
-    return this.http.post<Login>('http://localhost:5000/api/register/register', userInput).pipe(
+    return this.http.post<Login>(this.baseApiUrl + 'register', userInput).pipe(
       map(registerResponse => registerResponse)
     )
   }
 
   login(userInput: LoginUser): Observable<Login | null> {
-    return this.http.post<Login>('http://localhost:5000/api/register/login', userInput).pipe(
+    return this.http.post<Login>(this.baseApiUrl + 'login', userInput).pipe(
       map(loginResponse => {
         if (loginResponse) {
           this.setcurrentUser(loginResponse);
